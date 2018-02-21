@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import { FlatList, Text, StyleSheet, ToastAndroid } from 'react-native';
 import Card from './Card';
 
 //these props are called from the Home Page
@@ -9,8 +9,11 @@ const CardList = props => (
         data={props.messages}
         //this renders each card the same way a map function would
         renderItem={card => (
-            <Item
-                onItemPress={() => {}}
+            <Card
+                onCardPress={() => {
+                    //
+                    ToastAndroid.show(card.item.location, ToastAndroid.SHORT);
+                }}
                 message={card.item.message}
                 location={card.item.location}
             />
