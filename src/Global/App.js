@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import HomePage from '../HomePage/HomePage';
 
 export default class App extends Component {
     render() {
-        return <View style={styles.container} />;
+        return <HomePage />;
     }
 }
 

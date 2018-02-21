@@ -8,10 +8,24 @@ import {
 } from 'react-native';
 
 const Card = props => (
+    // This prop is usually called at the CardList component
     <Touchable onPress={props.onCardPress}>
         <View style={styles.Card}>
-            <Text>{props.message}</Text>
-            <Text>{props.location}</Text>
+            <Text style={{ fontSize: 15 }}>{props.message}</Text>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignSelf: 'flex-end'
+                }}
+            >
+                <Text
+                    style={{
+                        fontSize: 10
+                    }}
+                >
+                    {props.location}
+                </Text>
+            </View>
         </View>
     </Touchable>
 );
@@ -20,10 +34,10 @@ const styles = StyleSheet.create({
     Card: {
         width: '100%',
         backgroundColor: '#eee',
-        marginBottom: 5,
+        marginBottom: 8,
         padding: 7,
-        flexDirection: 'row',
-        alignCards: 'center'
+        flexDirection: 'column',
+        alignItems: 'flex-start'
     }
 });
 export default Card;
