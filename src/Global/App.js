@@ -18,8 +18,19 @@ Navigation.registerComponent('spot.HomeScreen', () => HomeScreen);
 
 //Start the react Navigation wrapped App
 Navigation.startSingleScreenApp({
+
     screen: {
         screen: 'spot.LoginScreen',
-        title: 'Spot!'
-    }
+        title: 'Spot!',
+        navigatorStyle: {
+            navBarTextColor: 'white',
+            navBarTextFontSize: 45,
+            navBarTitleTextCentered: true,
+            navBarHeight: 150,
+            navBarBackgroundColor: '#18458e'
+        },
+    },
 });
+
+
+

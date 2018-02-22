@@ -5,7 +5,8 @@ import {
     Text,
     View,
     Button,
-    ToastAndroid, TextInput
+    ToastAndroid,
+    TextInput
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
 class Login extends Component {
@@ -32,7 +33,6 @@ class Login extends Component {
             })
                 .then(res => res.json())
                 .then(json => {
-
                     ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
                     startTabs();
                 })
@@ -44,45 +44,47 @@ class Login extends Component {
 
     }
 
-    showSignup = () => {
-        this.props.navigator.showModal({
-            screen: "spot.SignupScreen",
-            title: "Sign Up",
-            animated: true,
+    
+showSignup = () => {
+    this.props.navigator.showModal({
+        screen: "spot.SignupScreen",
+        title: "Sign Up",
+        animated: true,
 
-        })
-    }
+    })
+}
 
-    //Regular expression for email address
-    validateEmail = (email) => {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>Login</Text>
-                <TextInput
-                    style={styles.textInput}
-                    ref={x => {
-                        this.email = x;
-                    }}
-                    onChangeText={text => this.setState({ email: text })}
-                    placeholder="Email Address"
-                />
-                <TextInput
-                    style={styles.textInput}
-                    ref={x => {
-                        this.password = x;
-                    }}
-                    onChangeText={text => this.setState({ password: text })}
-                    placeholder="Password"
-                />
-                <Button onPress={this.login} title="Login" />
-                <Text onPress={this.showSignup}>Don't have an account? Sign up</Text>
-            </View>
-        );
-    }
+//Regular expression for email address
+validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+render() {
+    return (
+        <View style={styles.container}>
+            <Text>Login</Text>
+            <TextInput
+                style={styles.textInput}
+                ref={x => {
+                    this.email = x;
+                }}
+                onChangeText={text => this.setState({ email: text })}
+                placeholder="Email Address"
+            />
+            <TextInput
+                style={styles.textInput}
+                ref={x => {
+                    this.password = x;
+                }}
+                onChangeText={text => this.setState({ password: text })}
+                placeholder="Password"
+            />
+            <Button onPress={this.login} title="Login" />
+            <Text onPress={this.showSignup}>Don't have an account? Sign up</Text>
+        </View>
+    );
+}
 
 }
 const styles = StyleSheet.create({
