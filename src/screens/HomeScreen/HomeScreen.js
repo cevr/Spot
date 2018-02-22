@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ToastAndroid, StyleSheet } from 'react-native';
 // import MapView from 'react-native-maps';
-import data from '../Global/fakeData';
+import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
 class HomeScreen extends Component {
     state = { data };
