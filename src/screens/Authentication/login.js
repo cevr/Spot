@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    Button,
-    ToastAndroid
-} from 'react-native';
+import { Platform, StyleSheet, Text, View, ToastAndroid } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
+import { Button } from '../../UI';
 class Login extends Component {
+    onPressTest = () => {
+        ToastAndroid.show('Log In Button', ToastAndroid.SHORT);
+    };
+
     render() {
         return (
             <View>
-                <Button onPress={startTabs} title="Login" />
+                <Button title="hello" onPress={this.stuff} />
             </View>
         );
     }
-}
-function onPressTest() {
-    ToastAndroid.show('Log In Button', ToastAndroid.SHORT);
 }
 export default Login;
