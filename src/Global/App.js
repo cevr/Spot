@@ -20,6 +20,6 @@ Navigation.registerComponent('spot.HomeScreen', () => HomeScreen);
 Navigation.startSingleScreenApp({
     screen: {
         screen: 'spot.LoginScreen',
-        title: 'Welcome'
+        title: 'Spot!'
     }
 });
