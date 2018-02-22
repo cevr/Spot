@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
     Platform,
     StyleSheet,
@@ -8,7 +9,9 @@ import {
     ToastAndroid, TextInput
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
+import { Button } from '../../UI';
 class Login extends Component {
+
     state = {};
     login = () => {
         let data = {
@@ -85,6 +88,7 @@ class Login extends Component {
     }
 
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
