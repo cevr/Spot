@@ -24,6 +24,6 @@ Navigation.registerComponent('spot.SideDrawer', () => SideDrawer);
 Navigation.startSingleScreenApp({
     screen: {
         screen: 'spot.LoginScreen',
-        title: 'Welcome'
+        title: 'Spot!'
     }
 });
