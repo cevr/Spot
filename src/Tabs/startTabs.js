@@ -5,7 +5,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // See object bellow
 const startTabs = () => {
     //Icon.getImageSource is async, therefore you need to resolve it through a promise or an async/await (couldn't get it working with async)
-    Promise.resolve(Icon.getImageSource('md-home', 30)).then(source =>
+    Promise.all([
+        Icon.getImageSource('ios-home-outline', 30),
+        Icon.getImageSource('ios-locate-outline', 30),
+        Icon.getImageSource('ios-add-circle-outline', 30),
+        Icon.getImageSource('ios-contact-outline', 30),
+        Icon.getImageSource('ios-settings-outline', 30)
+    ]).then(sources =>
         Navigation.startTabBasedApp({
             tabs: [
                 {
@@ -13,7 +19,31 @@ const startTabs = () => {
                     label: 'Home',
                     title: 'Home',
                     //this icon key is a required value otherwise react throws an error
-                    icon: source
+                    icon: sources[0]
+                },
+                {
+                    screen: 'spot.LocationScreen',
+                    label: 'All Locations',
+                    title: 'All Locations',
+                    icon: sources[1]
+                },
+                {
+                    screen: 'spot.AddMessagesScreen',
+                    label: 'Add Message',
+                    title: 'Add Message',
+                    icon: sources[2]
+                },
+                {
+                    screen: 'spot.ProfileScreen',
+                    label: 'Profile',
+                    title: 'My Profile',
+                    icon: sources[3]
+                },
+                {
+                    screen: 'spot.SettingsScreen',
+                    label: 'Settings',
+                    title: 'Settings',
+                    icon: sources[4]
                 }
             ]
         })
