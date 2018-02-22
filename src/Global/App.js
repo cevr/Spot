@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
+import Login from '../Authentication/login';
+import SignUp from '../Authentication/signup';
+
 export default class App extends Component {
     render() {
-        return <View style={styles.container} />;
+        return (
+            <View style={styles.container} >
+            <Text style={styles.text}>SpotDude</Text>
+                <Login />
+                <SignUp/>
+            </View>
+        )
     }
 }
 
@@ -13,5 +22,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF'
+    },
+    text: {
+        fontSize : 35,
+        fontWeight : 'bold'
     }
 });
