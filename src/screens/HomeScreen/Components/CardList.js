@@ -16,7 +16,7 @@ const CardList = props => (
                 }}
                 message={card.item.message}
                 location={card.item.location}
-            />
+            />  
         )}
     />
 );

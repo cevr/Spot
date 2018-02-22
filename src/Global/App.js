@@ -1,33 +1,16 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import HomePage from '../HomePage/HomePage';
+import { Navigation } from 'react-native-navigation';
+import HomeScreen from '../screens/HomeScreen/HomeScreens';
+import AuthScreen from '../screens/Auth';
 
-import Login from '../Authentication/login';
-import SignUp from '../Authentication/signup';
+//React native requires a wrapper to render components
+//for each no screen, you must register the component
+Navigation.registerComponent('spot.SplashScreen', () => AuthScreen);
+Navigation.registerComponent('spot.HomeScreen', () => HomeScreen);
 
-export default class App extends Component {
-    render() {
-        return (
-            <View style={styles.container} >
-            <Text style={styles.text}>SpotDude</Text>
-                <Login />
-                <SignUp/>
-                <HomePage />
-            </View>
-        )
-        return 
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF'
-    },
-    text: {
-        fontSize : 35,
-        fontWeight : 'bold'
+//Start the react Navigation wrapped App
+Navigation.startSingleScreenApp({
+    screen: {
+        screen: 'spot.SplashScreen',
+        title: 'Welcome'
     }
 });
