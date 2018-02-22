@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
     Platform,
     StyleSheet,
@@ -9,7 +10,9 @@ import {
     TextInput
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
+import { Button } from '../../UI';
 class Login extends Component {
+
     state = {};
     login = () => {
         let data = {
@@ -87,6 +90,7 @@ render() {
 }
 
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
