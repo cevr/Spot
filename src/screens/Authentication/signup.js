@@ -10,18 +10,7 @@ import {
     TextInput
 } from 'react-native';
 class SignUp extends Component {
-    state = {
-        modalVisible: false,
-        email: 'Enter email address',
-        password: 'Enter password'
-    };
-    openModal = () => {
-        this.setState({ modalVisible: true });
-    };
-
-    closeModal = () => {
-        this.setState({ modalVisible: false });
-    };
+    state = {};
 
     onPressTest = () => {
         let data = {
@@ -29,69 +18,69 @@ class SignUp extends Component {
             password: this.state.password
         };
         console.log(data);
-        fetch('http://10.65.109.159:4000/signup', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => {
-                ToastAndroid.show('sign up', ToastAndroid.SHORT);
-                //res.json()
+
+        if (data.email === undefined || data.password === undefined) {
+            ToastAndroid.show('Empty inputs', ToastAndroid.SHORT)
+        } else if (!(this.validateEmail(data.email))) {
+            ToastAndroid.show('Please enter a valid email format', ToastAndroid.SHORT);
+        } else {
+            fetch('http://10.65.109.159:4000/signup', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'credentials': 'include'
+                },
+                body: JSON.stringify(data)
             })
-
-            // .then(json => {this.setState({ signedUp: true })})
-            .catch(err => {
-                console.log(err);
-                //ToastAndroid.show(JSON.stringify(err), ToastAndroid.SHORT);
+                .then(res => res.json())
+                .then(json => {
+                    ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.props.navigator.dismissModal({
+                animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
             });
+        }
 
-        // setTimeout(() => this.closeModal(), 1000)
-    };
+
+    }
+    
+    //Regular expression for email address
+    validateEmail = (email) => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
     //Render the Sign Up modal after pressing the Sign up button.
     renderSignUp() {
         return (
-            <View style={styles.modalContainer}>
-                <View style={styles.innerContainer}>
-                    <Text>Sign Up Here</Text>
-                    {/* <View>{JSON.stringify(this.state.error)}</View> */}
-                    <TextInput
-                        style={styles.textInput}
-                        ref={x => {
-                            this.email = x;
-                        }}
-                        onChangeText={text => this.setState({ email: text })}
-                        placeholder={this.state.email}
-                        keyboardType={'email-address'}
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        ref={x => {
-                            this.password = x;
-                        }}
-                        onChangeText={text => this.setState({ password: text })}
-                        placeholder={this.state.password}
-                    />
-                    <Button
-                        onPress={() => this.onPressTest()}
-                        title="Sign Up"
-                    />
-                </View>
+            <View style={styles.container}>
+                <TextInput
+                    style={styles.textInput}
+                    ref={x => {
+                        this.email = x;
+                    }}
+                    onChangeText={text => this.setState({ email: text })}
+                    placeholder="Email address"
+                    keyboardType={'email-address'}
+                />
+                <TextInput
+                    style={styles.textInput}
+                    ref={x => {
+                        this.password = x;
+                    }}
+                    onChangeText={text => this.setState({ password: text })}
+                    placeholder="Password"
+                />
+                <Button onPress={this.onPressTest} title="Sign Up" />
             </View>
         );
     }
     render() {
         return (
-            <View>
-                <Modal
-                    visible={this.state.modalVisible}
-                    animationType={'slide'}
-                    onRequestClose={() => this.closeModal()}
-                >
-                    {this.renderSignUp()}
-                </Modal>
-                <Button onPress={() => this.openModal()} title="Sign Up" />
+            <View style={styles.container}>
+                {this.renderSignUp()}
             </View>
         );
     }
@@ -99,7 +88,9 @@ class SignUp extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FFFF'
     },
     modalContainer: {
         flex: 1,
@@ -110,8 +101,9 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 45,
-        width: 200
+        width: 280
     }
 });
+
 
 export default SignUp;

@@ -18,26 +18,28 @@ export default class AddMessagesScreen extends Component {
       region: {
         latitude: 45.5017,
         longitude: -73.5673,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+        latitudeDelta: 0.0005,
+        longitudeDelta: 0.0003
       }
     };
   }
 
   newLocation = () => {
     this.props.navigator.showModal({
-      screen: "spot.AddNewLocationScreen",
-      title: "Add New Location",
+      screen: "spot.NewLocationScreen",
+      title: "New Location",
       passProps: {
-        setLocation: region => {
-          this.setState({ region });
-        }
+        setLocation: inpRegion => {
+          console.log("region final", inpRegion);
+          this.setState({ region: inpRegion });
+        },
+        region: this.state.region
       }
     });
   };
 
   existingLocation = () => {
-    console.log("existing location");
+    console.log("region after render", this.state.region);
   };
 
   submitMsg = () => {};

@@ -10,7 +10,8 @@ const startTabs = () => {
         Icon.getImageSource('ios-locate-outline', 30),
         Icon.getImageSource('ios-add-circle-outline', 30),
         Icon.getImageSource('ios-contact-outline', 30),
-        Icon.getImageSource('ios-settings-outline', 30)
+        Icon.getImageSource('ios-settings-outline', 30),
+        Icon.getImageSource('ios-menu', 30)
     ]).then(sources =>
         Navigation.startTabBasedApp({
             tabs: [
@@ -19,7 +20,16 @@ const startTabs = () => {
                     label: 'Home',
                     title: 'Home',
                     //this icon key is a required value otherwise react throws an error
-                    icon: sources[0]
+                    icon: sources[0],
+                    navigatorButtons: {
+                        leftButtons: [
+                            {
+                                icon: sources[5],
+                                title: 'Menu',
+                                id: 'sideDrawerToggle'
+                            }
+                        ]
+                    }
                 },
                 {
                     screen: 'spot.LocationScreen',
@@ -45,7 +55,12 @@ const startTabs = () => {
                     title: 'Settings',
                     icon: sources[4]
                 }
-            ]
+            ],
+            drawer: {
+                left: {
+                    screen: 'spot.SideDrawer'
+                }
+            }
         })
     );
 };

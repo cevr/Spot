@@ -1,4 +1,5 @@
 import { Navigation } from "react-native-navigation";
+/*                                                      */
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import Login from "../screens/Authentication/login";
 import Signup from "../screens/Authentication/signup";
@@ -6,7 +7,8 @@ import AddMessagesScreen from "../screens/AddMessagesScreen/AddMessagesScreen";
 import LocationScreen from "../screens/LocationScreen/LocationScreen";
 import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
 import SettingsScreen from "../screens/SettingsScreen/SettingsScreen";
-import NewLocation from "../screens/AddMessagesScreen/newLocation";
+import SideDrawer from "../screens/SideDrawer/SideDrawer";
+
 //React native requires a wrapper to render components
 //for each no screen, you must register the component
 Navigation.registerComponent("spot.LoginScreen", () => Login);
@@ -17,11 +19,19 @@ Navigation.registerComponent("spot.LocationScreen", () => LocationScreen);
 Navigation.registerComponent("spot.ProfileScreen", () => ProfileScreen);
 Navigation.registerComponent("spot.SettingsScreen", () => SettingsScreen);
 Navigation.registerComponent("spot.HomeScreen", () => HomeScreen);
+Navigation.registerComponent("spot.SideDrawer", () => SideDrawer);
 
 //Start the react Navigation wrapped App
 Navigation.startSingleScreenApp({
   screen: {
     screen: "spot.LoginScreen",
-    title: "Welcome"
+    title: "Spot!",
+    navigatorStyle: {
+      navBarTextColor: "white",
+      navBarTextFontSize: 45,
+      navBarTitleTextCentered: true,
+      navBarHeight: 150,
+      navBarBackgroundColor: "#18458e"
+    }
   }
 });

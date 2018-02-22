@@ -12,19 +12,35 @@ import {
 import MapView, { Marker } from "react-native-maps";
 
 export default class NewLocation extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      region: {
-        latitude: 45.5017,
-        longitude: -73.5673,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }
+      inpLocation: "",
+      region: this.props.region
     };
   }
 
-  enterLocation = () => {
+  //this fetch will be handled in backend
+  async fetchCoordinates(location) {
+    let proxy = `https://cors-anywhere.herokuapp.com/`;
+    let gmaps = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBir9MEzI0sPVqb1RltNNZh7WA9YcyNa9U`;
+    let region = await fetch(gmaps)
+      .then(raw => raw.json())
+      .then(coordinates => {
+        let region = {
+          latitude: coordinates.results[0].geometry.location.lat,
+          longitude: coordinates.results[0].geometry.location.lng,
+          latitudeDelta: 0.0005,
+          longitudeDelta: 0.0003
+        };
+        return region;
+      });
+    return region;
+  }
+
+  enterLocation = async () => {
+    let region = await this.fetchCoordinates(this.state.inpLocation);
+    this.props.setLocation(region);
     this.props.navigator.dismissModal({
       animationType: "slide-down"
     });
@@ -50,9 +66,9 @@ export default class NewLocation extends Component {
             style={styles.msgBody}
             underlineColorAndroid="transparent"
             maxLength={60}
+            onChangeText={inp => this.setState({ inpLocation: inp })}
           />
           <Picker
-            mode="dropdown"
             prompt="Radius"
             selectedValue={this.state.radius}
             onValueChange={(itemValue, itemIndex) =>
