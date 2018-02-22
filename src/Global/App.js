@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-import HomeScreen from '../screens/HomeScreen/HomeScreens';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import AuthScreen from '../screens/Auth';
 
 //React native requires a wrapper to render components
