@@ -24,7 +24,7 @@ class SignUp extends Component {
         } else if (!(this.validateEmail(data.email))) {
             ToastAndroid.show('Please enter a valid email format', ToastAndroid.SHORT);
         } else {
-            fetch('http://10.65.109.159:4000/signup', {
+            fetch('http://jodysmith.ca:5000/signup', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

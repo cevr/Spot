@@ -27,7 +27,7 @@ class Login extends Component {
         ToastAndroid.SHORT
       );
     } else {
-      fetch("http://10.65.109.159:4000/login", {
+      fetch("http://jodysmith.ca:5000/login", {
         method: "POST",
         headers: {
           "content-type": "application/json",
