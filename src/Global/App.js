@@ -63,7 +63,7 @@ Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 //Start the react Navigation wrapped App
 Navigation.startSingleScreenApp({
     screen: {
-        screen: 'spot.Test',
+        screen: 'spot.Auth',
         title: 'Spot!'
     }
 });
