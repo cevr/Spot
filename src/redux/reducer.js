@@ -10,12 +10,19 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 isSignedIn: true
             };
+            break;
+
         case 'LOG_OUT':
             return {
                 ...state,
                 isSignedIn: false
             };
             break;
+        case 'SET_DATA':
+            return {
+                ...state,
+                data: action.data
+            };
         default:
             return state;
     }
