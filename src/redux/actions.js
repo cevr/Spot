@@ -1,12 +1,12 @@
-export const signIn = (authenthicated = false) => {
+export const logIn = (authenthicated = false) => {
     return {
-        type: 'SIGN_IN',
+        type: 'LOG_IN',
         authenthicated
     };
 };
 
-export const signOut = () => {
+export const logOut = () => {
     return {
-        type: 'SIGN_OUT'
+        type: 'LOG_OUT'
     };
 };

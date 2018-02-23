@@ -1,11 +1,16 @@
-const rootReducer = (state, action) => {
+const initialState = {
+    isLoggedIn: false,
+    count: 1
+};
+
+const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SIGN_IN':
+        case 'LOG_IN':
             return {
                 ...state,
                 isSignedIn: true
             };
-        case 'SIGN_OUT':
+        case 'LOG_OUT':
             return {
                 ...state,
                 isSignedIn: false

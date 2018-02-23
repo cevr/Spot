@@ -58,12 +58,12 @@ Navigation.registerComponent(
     Provider
 );
 Navigation.registerComponent('spot.SideDrawer', () => screens.SideDrawer);
-Navigation.registerComponent('spot.Test', () => screens.Test);
+Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 
 //Start the react Navigation wrapped App
 Navigation.startSingleScreenApp({
     screen: {
-        screen: 'spot.Auth',
+        screen: 'spot.Test',
         title: 'Spot!'
     }
 });

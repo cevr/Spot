@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-
+import { connect } from 'react-redux';
 class Test extends Component {
     constructor() {
         super();
@@ -13,10 +13,12 @@ class Test extends Component {
     render() {
         return (
             <View>
-                <Text>{this.state.test /* hey */}</Text>
+                <Text>{this.props.count}</Text>
             </View>
         );
     }
 }
-
-export default Test;
+const mapStatetoProps = state => {
+    return state;
+};
+export default connect(mapStatetoProps)(Test);
