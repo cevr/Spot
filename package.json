@@ -6,14 +6,16 @@
         "start": "node node_modules/react-native/local-cli/cli.js start",
         "test": "jest"
     },
+    "proxy": "http://jodysmith.ca:5000/",
     "dependencies": {
+        "jsc-android": "^216113.0.0",
         "react": "^16.2.0",
         "react-native": "^0.51.0",
         "react-native-maps": "^0.20.1",
         "react-native-navigation": "^1.1.384",
         "react-native-vector-icons": "^4.5.0",
-        "statorgfc": "^0.1.6",
-        "jsc-android": "^216113.0.0"
+        "react-redux": "^5.0.7",
+        "redux": "^3.7.2"
     },
     "devDependencies": {
         "babel-jest": "22.4.0",

@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { store } from 'statorgfc';
-
+import { connect } from 'react-redux';
 class Test extends Component {
     constructor() {
         super();
-        store.connectComponentState(this, ['count']);
+
+        this.state = {
+            test: 'hey'
+        };
     }
-    componentDidMount() {
-        store.set({ count: 1 });
-    }
+
     render() {
         return (
             <View>
-                <Text>{this.state.count}</Text>
+                <Text>{this.props.count}</Text>
             </View>
         );
     }
 }
-
-export default Test;
+const mapStatetoProps = state => {
+    return state;
+};
+export default connect(mapStatetoProps)(Test);
