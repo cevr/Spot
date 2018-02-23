@@ -9,22 +9,41 @@ import {
   ToastAndroid,
   Picker
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Circle } from "react-native-maps";
 
 export default class NewLocation extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      region: {
-        latitude: 45.5017,
-        longitude: -73.5673,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }
+      inpLocation: "",
+      region: this.props.region
     };
   }
 
-  enterLocation = () => {
+  //this fetch will be handled in backend
+  async fetchCoordinates(location) {
+    let proxy = `https://cors-anywhere.herokuapp.com/`;
+    let gmaps = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBir9MEzI0sPVqb1RltNNZh7WA9YcyNa9U`;
+    let region = await fetch(gmaps)
+      .then(raw => raw.json())
+      .then(coordinates => {
+        let region = {
+          coordinates: {
+            latitude: coordinates.results[0].geometry.location.lat,
+            longitude: coordinates.results[0].geometry.location.lng
+          },
+          radius: this.state.radius
+        };
+        this.setState({ region });
+        return region;
+      });
+    return region;
+  }
+
+  enterLocation = async () => {
+    let region = await this.fetchCoordinates(this.state.inpLocation);
+    console.log("region at enterLoc", region);
+    this.props.setLocation(region);
     this.props.navigator.dismissModal({
       animationType: "slide-down"
     });
@@ -34,12 +53,20 @@ export default class NewLocation extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.mapContainer}>
-          <MapView region={this.state.region} style={styles.map}>
-            <Marker
-              coordinate={{
-                latitude: this.state.region.latitude,
-                longitude: this.state.region.longitude
-              }}
+          <MapView
+            region={{
+              ...this.state.region.coordinates,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.003
+            }}
+            style={styles.map}
+          >
+            <Marker coordinate={this.state.region.coordinates} />
+            <Circle
+              center={this.state.region.coordinates}
+              radius={this.state.region.radius}
+              strokeColor="#72a3b2"
+              fillColor="rgba(140, 201, 219, 0.5)"
             />
           </MapView>
         </View>
@@ -50,20 +77,18 @@ export default class NewLocation extends Component {
             style={styles.msgBody}
             underlineColorAndroid="transparent"
             maxLength={60}
+            onChangeText={inp => this.setState({ inpLocation: inp })}
           />
           <Picker
-            mode="dropdown"
             prompt="Radius"
             selectedValue={this.state.radius}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({ radius: itemValue })
             }
           >
-            <Picker.Item label="X-Small" value={10} />
             <Picker.Item label="Small" value={30} />
-            <Picker.Item label="Medium" value={50} />
-            <Picker.Item label="Large" value={80} />
-            <Picker.Item label="X-Large" value={100} />
+            <Picker.Item label="Medium" value={60} />
+            <Picker.Item label="Large" value={100} />
           </Picker>
           <View>
             <Button title="Ok" onPress={this.enterLocation} />

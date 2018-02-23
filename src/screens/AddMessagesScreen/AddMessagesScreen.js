@@ -9,42 +9,44 @@ import {
   Button,
   ToastAndroid
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Circle } from "react-native-maps";
 
 export default class AddMessagesScreen extends Component {
   constructor() {
     super();
     this.state = {
       region: {
-        latitude: 45.5017,
-        longitude: -73.5673,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+        coordinates: {
+          latitude: 45.5017,
+          longitude: -73.5673
+        },
+        radius: 0
       }
     };
   }
 
   newLocation = () => {
     this.props.navigator.showModal({
-      screen: "spot.AddNewLocationScreen",
-      title: "Add New Location",
+      screen: "spot.NewLocationScreen",
+      title: "New Location",
       passProps: {
-        setLocation: region => {
-          this.setState({ region });
-        }
+        setLocation: this.setLocation,
+        region: this.state.region
       }
     });
   };
 
-  existingLocation = () => {
-    console.log("existing location");
+  setLocation = region => {
+    this.setState({ region });
   };
+
+  existingLocation = () => {};
 
   submitMsg = () => {};
 
-  //   mapReady = () => {
-  //     this.setState({ mapReady: true });
-  //   };
+  mapReady = () => {
+    this.setState({ mapReady: true });
+  };
 
   render() {
     return (
@@ -61,15 +63,20 @@ export default class AddMessagesScreen extends Component {
         </View>
         <View style={styles.mapContainer}>
           <MapView
-            region={this.state.region}
+            region={{
+              ...this.state.region.coordinates,
+              latitudeDelta: 0.006,
+              longitudeDelta: 0.002
+            }}
             style={styles.map}
-            // onLayout={this.mapReady}
+            onLayout={this.mapReady}
           >
-            <Marker
-              coordinate={{
-                latitude: this.state.region.latitude,
-                longitude: this.state.region.longitude
-              }}
+            <Marker coordinate={this.state.region.coordinates} />
+            <Circle
+              center={this.state.region.coordinates}
+              radius={this.state.region.radius}
+              strokeColor="#72a3b2"
+              fillColor="rgba(140, 201, 219, 0.5)"
             />
           </MapView>
         </View>

@@ -43,14 +43,10 @@ class SignUp extends Component {
                 animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
             });
         }
-        // if (this.validateEmail(data.email)) {
-        //     ToastAndroid.show("enter your email please", ToastAndroid.SHORT)
-        // } else {
-        //     
-        // }
 
 
     }
+    
     //Regular expression for email address
     validateEmail = (email) => {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -108,5 +104,6 @@ const styles = StyleSheet.create({
         width: 280
     }
 });
+
 
 export default SignUp;
