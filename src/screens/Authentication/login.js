@@ -48,11 +48,29 @@ class Login extends Component {
         }
     };
 
-    showSignup = () => {
-        this.props.navigator.showModal({
-            screen: 'spot.SignupScreen',
-            title: 'Sign Up',
-            animated: true
+    if (data.email === undefined || data.password === undefined) {
+      ToastAndroid.show("Empty inputs", ToastAndroid.SHORT);
+    } else if (!this.validateEmail(data.email)) {
+      ToastAndroid.show(
+        "Please enter a valid email format",
+        ToastAndroid.SHORT
+      );
+    } else {
+      fetch("http://jodysmith.ca:5000/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          credentials: "include"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(json => {
+          ToastAndroid.show("sign up successful", ToastAndroid.SHORT);
+          startTabs();
+        })
+        .catch(err => {
+          console.log(err);
         });
     };
 
