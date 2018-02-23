@@ -20,18 +20,9 @@ class HomeScreen extends Component {
         }
     };
     componentDidMount() {
-        fetch('/someurl', {
-            credentials: 'include'
-        })
-            .then(res => res.json())
-            .then(json => {
-                if (json.res) {
-                    this.props.setData(json.data);
-                }
-            });
+        this.props.setData(data);
     }
     render() {
-        const { data } = this.state;
         return (
             <View style={styles.CardList}>
                 <CardList messages={this.props.data} />
@@ -55,9 +46,9 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        setData: () => {
-            dispatch(setData);
+        setData: data => {
+            dispatch(setData(data));
         }
     };
 };
-export default connect(mapStatetoProps)(HomeScreen);
+export default connect(mapStatetoProps, mapDispatchtoProps)(HomeScreen);
