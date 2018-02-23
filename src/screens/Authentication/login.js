@@ -5,13 +5,12 @@ import {
     StyleSheet,
     Text,
     View,
-    Button,
-    ToastAndroid, TextInput
+    ToastAndroid,
+    TextInput
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
 import { Button } from '../../UI';
 class Login extends Component {
-
     state = {};
     login = () => {
         let data = {
@@ -21,46 +20,45 @@ class Login extends Component {
         console.log(data);
 
         if (data.email === undefined || data.password === undefined) {
-            ToastAndroid.show('Empty inputs', ToastAndroid.SHORT)
-        } else if (!(this.validateEmail(data.email))) {
-            ToastAndroid.show('Please enter a valid email format', ToastAndroid.SHORT);
+            ToastAndroid.show('Empty inputs', ToastAndroid.SHORT);
+        } else if (!this.validateEmail(data.email)) {
+            ToastAndroid.show(
+                'Please enter a valid email format',
+                ToastAndroid.SHORT
+            );
         } else {
             fetch('http://10.65.109.159:4000/login', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
-                    'credentials': 'include'
+                    credentials: 'include'
                 },
                 body: JSON.stringify(data)
             })
                 .then(res => res.json())
                 .then(json => {
-
                     ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
                     startTabs();
                 })
                 .catch(err => {
                     console.log(err);
                 });
-
         }
-
-    }
+    };
 
     showSignup = () => {
         this.props.navigator.showModal({
-            screen: "spot.SignupScreen",
-            title: "Sign Up",
-            animated: true,
-
-        })
-    }
+            screen: 'spot.SignupScreen',
+            title: 'Sign Up',
+            animated: true
+        });
+    };
 
     //Regular expression for email address
-    validateEmail = (email) => {
+    validateEmail = email => {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
-    }
+    };
     render() {
         return (
             <View style={styles.container}>
@@ -82,11 +80,12 @@ class Login extends Component {
                     placeholder="Password"
                 />
                 <Button onPress={this.login} title="Login" />
-                <Text onPress={this.showSignup}>Don't have an account? Sign up</Text>
+                <Text onPress={this.showSignup}>
+                    Don't have an account? Sign up
+                </Text>
             </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({

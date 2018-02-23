@@ -134,6 +134,11 @@ android {
         }
     }
 }
+configurations.all {
+   resolutionStrategy {
+        force 'org.webkit:android-jsc:r216113'
+    }
+}
 
 dependencies {
    
