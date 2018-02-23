@@ -10,3 +10,10 @@ export const logOut = () => {
         type: 'LOG_OUT'
     };
 };
+
+export const setData = data => {
+    return {
+        type: 'SET_DATA',
+        data
+    };
+};

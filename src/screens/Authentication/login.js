@@ -39,6 +39,7 @@ class Login extends Component {
                 .then(res => res.json())
                 .then(json => {
                     ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
+                    this.props.logIn(true);
                     startTabs();
                 })
                 .catch(err => {

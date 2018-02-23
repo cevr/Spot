@@ -25,7 +25,7 @@ const styles = StyleSheet.create({});
 
 const mapStatetoProps = state => {
     return {
-        //access what you need
+        data: state.data
     };
 };
 export default connect(mapStatetoProps)(CardList);

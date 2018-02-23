@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, ToastAndroid, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { setData } from '../../redux/actions';
 // import MapView from 'react-native-maps';
 import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
@@ -17,12 +19,22 @@ class HomeScreen extends Component {
             }
         }
     };
-    state = { data };
+    componentDidMount() {
+        fetch('/someurl', {
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.res) {
+                    this.props.setData(json.data);
+                }
+            });
+    }
     render() {
         const { data } = this.state;
         return (
             <View style={styles.CardList}>
-                <CardList messages={data} />
+                <CardList messages={this.props.data} />
             </View>
         );
     }
@@ -34,4 +46,18 @@ const styles = StyleSheet.create({
         margin: 40
     }
 });
-export default HomeScreen;
+
+const mapStatetoProps = state => {
+    return {
+        data: state.data
+    };
+};
+
+const mapDispatchtoProps = dispatch => {
+    return {
+        setData: () => {
+            dispatch(setData);
+        }
+    };
+};
+export default connect(mapStatetoProps)(HomeScreen);
