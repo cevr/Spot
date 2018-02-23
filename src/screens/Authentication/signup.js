@@ -18,35 +18,32 @@ class SignUp extends Component {
             password: this.state.password
         };
         console.log(data);
-
-        if (data.email === undefined || data.password === undefined) {
-            ToastAndroid.show('Empty inputs', ToastAndroid.SHORT)
-        } else if (!(this.validateEmail(data.email))) {
-            ToastAndroid.show('Please enter a valid email format', ToastAndroid.SHORT);
-        } else {
-            fetch('http://jodysmith.ca:5000/signup', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    'credentials': 'include'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(res => res.json())
-                .then(json => {
+        fetch('http://jodysmith.ca:5000/signup', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                if (json.res) {
                     ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-            this.props.navigator.dismissModal({
-                animationType: 'slide-down' // 'none' / 'slide-down' , dismiss animation for the modal (optional, default 'slide-down')
+                } else {
+                    ToastAndroid.show('sign up failed', ToastAndroid.SHORT)
+                }
+            })
+            .catch(err => {
+                console.log(err);
             });
-        }
-
+        this.props.navigator.dismissModal({
+            animationType: 'slide-down'
+        });
 
     }
-    
+
     //Regular expression for email address
     validateEmail = (email) => {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
