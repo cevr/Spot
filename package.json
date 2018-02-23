@@ -6,7 +6,7 @@
         "start": "node node_modules/react-native/local-cli/cli.js start",
         "test": "jest"
     },
-    "proxy": "jodysmith.ca:4000",
+    "proxy": "http://jodysmith.ca:5000/",
     "dependencies": {
         "jsc-android": "^216113.0.0",
         "react": "^16.2.0",
