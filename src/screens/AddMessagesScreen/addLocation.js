@@ -67,8 +67,8 @@ export default class NewLocation extends Component {
             }
             style={styles.picker}
           >
-            <Picker.Item label="Small" value={30} />
-            <Picker.Item label="Medium" value={40} />
+            <Picker.Item label="Small" value={15} />
+            <Picker.Item label="Medium" value={30} />
             <Picker.Item label="Large" value={100} />
           </Picker>
           <View>

@@ -29,7 +29,7 @@ export default class AddMessagesScreen extends Component {
 
   newLocation = () => {
     this.props.navigator.showLightBox({
-      screen: "spot.NewLocationScreen",
+      screen: "spot.AddLocationScreen",
       passProps: {
         setLocation: this.setLocation,
         region: this.state.region
@@ -47,7 +47,7 @@ export default class AddMessagesScreen extends Component {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title,
-        list: this.state.msg,
+        list: [this.state.msg],
         lat: this.state.region.coordinates.latitude,
         long: this.state.region.coordinates.longitude,
         rad: this.state.region.radius
