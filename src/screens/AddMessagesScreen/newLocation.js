@@ -44,33 +44,13 @@ export default class NewLocation extends Component {
     let region = await this.fetchCoordinates(this.state.inpLocation);
     console.log("region at enterLoc", region);
     this.props.setLocation(region);
-    this.props.navigator.dismissModal({
-      animationType: "slide-down"
-    });
+    this.props.navigator.dismissLightBox();
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.mapContainer}>
-          <MapView
-            region={{
-              ...this.state.region.coordinates,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.003
-            }}
-            style={styles.map}
-          >
-            <Marker coordinate={this.state.region.coordinates} />
-            <Circle
-              center={this.state.region.coordinates}
-              radius={this.state.region.radius}
-              strokeColor="#72a3b2"
-              fillColor="rgba(140, 201, 219, 0.5)"
-            />
-          </MapView>
-        </View>
-        <View>
+        <View style={styles.miniContainer}>
           <TextInput
             placeholder="Enter location"
             placeholderTextColor="#c4c4c4"
@@ -85,9 +65,10 @@ export default class NewLocation extends Component {
             onValueChange={(itemValue, itemIndex) =>
               this.setState({ radius: itemValue })
             }
+            style={styles.picker}
           >
             <Picker.Item label="Small" value={30} />
-            <Picker.Item label="Medium" value={60} />
+            <Picker.Item label="Medium" value={40} />
             <Picker.Item label="Large" value={100} />
           </Picker>
           <View>
@@ -104,7 +85,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff"
+    backgroundColor: "rgba(120, 120, 120, 0.8)"
+  },
+  miniContainer: {
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 180,
+    width: 240,
+    borderRadius: 10
   },
   msgBody: {
     height: 40,
@@ -118,23 +107,6 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10
-  },
-  mapContainer: {
-    position: "absolute",
-    top: 10,
-    left: 0,
-    right: 0,
-    bottom: 300,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    margin: 20
-  },
-  map: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
   },
   picker: {
     borderWidth: 2,
