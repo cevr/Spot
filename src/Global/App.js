@@ -6,6 +6,7 @@ import * as screens from "../screens/index";
 import configureStore from "../redux/store";
 //this initializes the global state
 const Store = configureStore();
+
 //React native requires a wrapper to render components
 //for each no screen, you must register the component
 Navigation.registerComponent("spot.Auth", () => screens.Auth);

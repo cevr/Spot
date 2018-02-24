@@ -32,11 +32,14 @@ class Login extends Component {
       .then(res => res.json())
       .then(x => {
         console.log(x)
-        if (x.res === false) {
+
+        if (x.err) {
           ToastAndroid.show(x.err, ToastAndroid.SHORT);
-          //this.props.logIn(true);
+          
           // startTabs;
         } else {
+          //this.props.logIn(true);
+          console.log("")
           startTabs();
         }
 
@@ -112,5 +115,11 @@ const mapDispatchtoProps = dispatch => {
     }
   };
 };
+
+// const mapStatetoProps = state => {
+//   return {
+//     isLoggedIn: state.isLoggedIn
+//   }
+// }
 
 export default connect(null, mapDispatchtoProps)(Login);
