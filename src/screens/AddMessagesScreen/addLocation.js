@@ -42,7 +42,6 @@ export default class NewLocation extends Component {
 
   enterLocation = async () => {
     let region = await this.fetchCoordinates(this.state.inpLocation);
-    console.log("region at enterLoc", region);
     this.props.setLocation(region);
     this.props.navigator.dismissLightBox();
   };

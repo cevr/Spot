@@ -42,7 +42,7 @@ export default class AddMessagesScreen extends Component {
   };
 
   submitMsg = () => {
-    fetch("/listCreate", {
+    fetch("http://jodysmith.ca:5000/listCreate", {
       credentials: "include",
       method: "POST",
       body: JSON.stringify({
@@ -52,12 +52,14 @@ export default class AddMessagesScreen extends Component {
         long: this.state.region.coordinates.longitude,
         rad: this.state.region.radius
       })
-        .then(res => res.json())
-        .then(res => {
-          if (!res.res)
-            ToastAndroid.show("Could not create message", ToastAndroid.SHORT);
-        })
-    });
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        if (!res.res)
+          ToastAndroid.show("Could not create message", ToastAndroid.SHORT);
+      });
     this.setState({
       region: {
         coordinates: {
