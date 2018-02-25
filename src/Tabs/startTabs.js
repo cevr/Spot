@@ -3,14 +3,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 //Icon library is useful for phone apps...
 //However, it is actually necessary when using react-native-navigation
 // See object bellow
-const navigatorStyle = {
-    navBarBackgroundColor: '#890B0E',
-    navBarTextColor: '#F6F6F6',
-    topBarElevationShadowEnabled: true,
-    screenBackgroundColor: '#F6F6F6',
-    navBarHideOnScroll: true,
-    statusBarColor: '#890B0E'
-};
 
 const startTabs = () => {
     //Icon.getImageSource is async, therefore you need to resolve it through a promise or an async/await (couldn't get it working with async)
@@ -90,5 +82,14 @@ const startTabs = () => {
     );
 };
 
+//set the style once here
+const navigatorStyle = {
+    navBarBackgroundColor: '#890B0E',
+    navBarTextColor: '#F6F6F6',
+    topBarElevationShadowEnabled: true,
+    screenBackgroundColor: '#F6F6F6',
+    navBarHideOnScroll: true,
+    statusBarColor: '#890B0E'
+};
 //this is imported as a function so we can call it as a side-effect in the login screen
 export default startTabs;
