@@ -18,8 +18,7 @@ const startTabs = () => {
         Icon.getImageSource('home-outline', 40),
         Icon.getImageSource('crosshairs-gps', 40),
         Icon.getImageSource('plus-circle-outline', 40),
-        Icon.getImageSource('menu', 30),
-        Icon.getImageSource('account-circle', 40)
+        Icon.getImageSource('menu', 30)
     ]).then(sources =>
         Navigation.startTabBasedApp({
             tabs: [
