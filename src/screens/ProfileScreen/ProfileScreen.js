@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Button, ToastAndroid } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    Button,
+    ToastAndroid
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 class ProfileScreen extends Component {
     render() {
@@ -7,12 +14,13 @@ class ProfileScreen extends Component {
             <View style={styles.container}>
                 <Image
                     style={styles.images}
-                    source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+                    source={{
+                        uri:
+                            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                    }}
                 />
                 <Text style={styles.text}>Avery Riell-Perrson</Text>
-                <View style={styles.button}>
-                    {myButton}
-                </View>
+                <View style={styles.button}>{myButton}</View>
                 {}
             </View>
         );
@@ -21,12 +29,12 @@ class ProfileScreen extends Component {
 
 logOut = () => {
     let data = {
-        res: "I logged out bitch"
-    }
+        res: 'I logged out bitch'
+    };
     fetch('http://jodysmith.ca:5000/logout', {
         method: 'POST',
         headers: {
-            'content-type': 'application/json',
+            'content-type': 'application/json'
         },
         body: JSON.stringify(data),
         credentials: 'include'
@@ -34,23 +42,23 @@ logOut = () => {
         .then(x => x.json())
         .then(json => {
             if (json.res === true) {
-                ToastAndroid.show('logout successful', ToastAndroid.SHORT)
+                ToastAndroid.show('logout successful', ToastAndroid.SHORT);
             } else {
-                ToastAndroid.show('could not log out', ToastAndroid.SHORT)
+                ToastAndroid.show('could not log out', ToastAndroid.SHORT);
             }
-        })
-}
+        });
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'center'
     },
     images: {
         marginTop: 25,
         borderRadius: 75,
         width: 150,
-        height: 150,
+        height: 150
     },
     text: {
         marginTop: 10,
@@ -62,11 +70,13 @@ const styles = StyleSheet.create({
 });
 
 const myButton = (
-    <Icon.Button name="sign-out" backgroundColor="#f45f5f" onPress={this.logOut}>
+    <Icon.Button
+        name="sign-out"
+        backgroundColor="#890C10"
+        onPress={this.logOut}
+    >
         Log out
     </Icon.Button>
 );
-
-
 
 export default ProfileScreen;

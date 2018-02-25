@@ -4,12 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 //However, it is actually necessary when using react-native-navigation
 // See object bellow
 const navigatorStyle = {
-    navBarBackgroundColor: '#890C10',
+    navBarBackgroundColor: '#890B0E',
     navBarTextColor: '#F6F6F6',
     topBarElevationShadowEnabled: true,
     screenBackgroundColor: '#F6F6F6',
     navBarHideOnScroll: true,
-    statusBarColor: '#890C10'
+    statusBarColor: '#890B0E'
 };
 
 const startTabs = () => {
@@ -18,9 +18,8 @@ const startTabs = () => {
         Icon.getImageSource('home-outline', 40),
         Icon.getImageSource('crosshairs-gps', 40),
         Icon.getImageSource('plus-circle-outline', 40),
-        Icon.getImageSource('account-circle', 40),
-        Icon.getImageSource('settings', 40),
-        Icon.getImageSource('menu', 30)
+        Icon.getImageSource('menu', 30),
+        Icon.getImageSource('account-circle', 40)
     ]).then(sources =>
         Navigation.startTabBasedApp({
             tabs: [
@@ -34,9 +33,9 @@ const startTabs = () => {
                     navigatorButtons: {
                         rightButtons: [
                             {
-                                icon: sources[5],
+                                icon: sources[3],
                                 title: 'Settings',
-                                id: 'sideDrawerToggle',
+                                id: 'settingsToggle',
                                 buttonColor: '#F6F6F6'
                             }
                         ]
@@ -51,9 +50,9 @@ const startTabs = () => {
                     navigatorButtons: {
                         rightButtons: [
                             {
-                                icon: sources[5],
+                                icon: sources[3],
                                 title: 'Settings',
-                                id: 'sideDrawerToggle',
+                                id: 'settingsToggle',
                                 buttonColor: '#F6F6F6'
                             }
                         ]
@@ -68,9 +67,9 @@ const startTabs = () => {
                     navigatorButtons: {
                         rightButtons: [
                             {
-                                icon: sources[5],
+                                icon: sources[3],
                                 title: 'Settings',
-                                id: 'sideDrawerToggle',
+                                id: 'settingsToggle',
                                 buttonColor: '#F6F6F6'
                             }
                         ]
@@ -84,7 +83,7 @@ const startTabs = () => {
             },
             appStyle: {
                 tabBarSelectedButtonColor: '#F6F6F6',
-                tabBarBackgroundColor: '#890C10',
+                tabBarBackgroundColor: '#890B0E',
                 orientation: 'portrait'
             },
             animationType: 'slide-down'

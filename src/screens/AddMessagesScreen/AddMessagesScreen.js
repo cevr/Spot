@@ -13,8 +13,8 @@ import {
 import MapView, { Marker, Circle } from 'react-native-maps';
 
 export default class AddMessagesScreen extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             region: {
                 coordinates: {
@@ -26,8 +26,17 @@ export default class AddMessagesScreen extends Component {
             msg: '',
             title: ''
         };
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
-
+    onNavigatorEvent = event => {
+        if (event.type === 'NavBarButtonPress') {
+            if (event.id === 'settingsToggle') {
+                this.props.navigator.toggleDrawer({
+                    side: 'right'
+                });
+            }
+        }
+    };
     newLocation = () => {
         this.props.navigator.showLightBox({
             screen: 'spot.AddLocationScreen',

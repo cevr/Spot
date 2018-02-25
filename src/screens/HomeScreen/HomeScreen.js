@@ -12,7 +12,7 @@ class HomeScreen extends Component {
     }
     onNavigatorEvent = event => {
         if (event.type === 'NavBarButtonPress') {
-            if (event.id === 'sideDrawerToggle') {
+            if (event.id === 'settingsToggle') {
                 this.props.navigator.toggleDrawer({
                     side: 'right'
                 });
