@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 const CardList = props => (
     <FlatList
         //this receives the array of information needed to render the card list
-        data={props.messages || props.names}
+        data={props.data}
         //this renders each card the same way a map function would
         renderItem={card => (
             <Card

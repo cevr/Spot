@@ -8,14 +8,14 @@ const rootReducer = (state = initialState, action) => {
         case 'LOG_IN':
             return {
                 ...state,
-                isSignedIn: true
+                isLoggedIn: true
             };
             break;
 
         case 'LOG_OUT':
             return {
                 ...state,
-                isSignedIn: false
+                isLoggedIn: false
             };
             break;
         case 'SET_DATA':

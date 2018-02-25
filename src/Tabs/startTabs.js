@@ -20,16 +20,7 @@ const startTabs = () => {
                     label: 'Home',
                     title: 'Home',
                     //this icon key is a required value otherwise react throws an error
-                    icon: sources[0],
-                    navigatorButtons: {
-                        leftButtons: [
-                            {
-                                icon: sources[5],
-                                title: 'Menu',
-                                id: 'sideDrawerToggle'
-                            }
-                        ]
-                    }
+                    icon: sources[0]
                 },
                 {
                     screen: 'spot.LocationScreen',
@@ -57,8 +48,8 @@ const startTabs = () => {
                 }
             ],
             drawer: {
-                left: {
-                    screen: 'spot.SideDrawer'
+                right: {
+                    screen: 'spot.SettingsScreen'
                 }
             }
         })
