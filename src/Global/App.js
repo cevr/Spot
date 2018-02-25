@@ -9,7 +9,7 @@ const Store = configureStore();
 
 //React native requires a wrapper to render components
 //for each no screen, you must register the component
-Navigation.registerComponent('spot.Auth', () => screens.Auth);
+Navigation.registerComponent('spot.Auth', () => screens.Auth, Store, Provider);
 Navigation.registerComponent(
     'spot.LoginScreen',
     () => screens.Login,
@@ -58,13 +58,13 @@ Navigation.registerComponent(
     Store,
     Provider
 );
-Navigation.registerComponent('spot.SideDrawer', () => screens.SideDrawer);
 Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 
 //Start the react Navigation wrapped App
 Navigation.startSingleScreenApp({
     screen: {
+        title: 'Spot!',
         screen: 'spot.Auth',
-        title: 'Spot!'
+        navigatorStyle: { navBarHidden: true }
     }
 });
