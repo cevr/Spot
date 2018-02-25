@@ -16,7 +16,6 @@ export {
     AddLocationScreen,
     AddMessagesScreen,
     LocationScreen,
-    ProfileScreen,
     SettingsScreen,
     Auth,
     Test

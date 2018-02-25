@@ -40,12 +40,7 @@ Navigation.registerComponent(
     Store,
     Provider
 );
-Navigation.registerComponent(
-    'spot.ProfileScreen',
-    () => screens.ProfileScreen,
-    Store,
-    Provider
-);
+
 Navigation.registerComponent(
     'spot.SettingsScreen',
     () => screens.SettingsScreen,
