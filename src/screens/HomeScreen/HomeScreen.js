@@ -11,7 +11,7 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-        this.state = { coordinates: { latitude: 0, longitude: 0 } };
+        // this.state = { coordinates: { latitude: 0, longitude: 0 } };
     }
     onNavigatorEvent = event => {
         if (event.type === 'NavBarButtonPress') {
@@ -66,10 +66,10 @@ class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.CardList}>
-                {this.state.coordinates && (
+                {this.props.coordinates && (
                     <Text>
-                        lat {this.state.coordinates.latitude} long{' '}
-                        {this.state.coordinates.longitude}
+                        lat {this.props.coordinates.latitude} long
+                        {this.props.coordinates.longitude}
                     </Text>
                 )}
                 <CardList
@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
 });
 const mapStatetoProps = state => {
     return {
-        data: state.data
+        data: state.data,
+        coordinates: state.coordinates
     };
 };
 const mapDispatchtoProps = dispatch => {
