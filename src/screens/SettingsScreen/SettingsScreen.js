@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Navigation } from 'react-native-navigation';
 import {
   View,
   Text,
@@ -9,7 +10,11 @@ import {
   Dimensions
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+
 class SettingsScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View
@@ -28,34 +33,49 @@ class SettingsScreen extends Component {
           }}
         />
         <Text style={styles.text}>Avery Riell-Perrson</Text>
-        <View style={styles.button}>{myButton}</View>
+        <View style={styles.button}>
+          <Icon.Button name="sign-out" backgroundColor="#890C10" onPress={this.logOut}>
+            Log out
+          </Icon.Button>
+        </View>
         {}
       </View>
     );
   }
+  logOut = () => {
+    let data = {
+      res: "I logged out"
+    };
+    fetch("http://jodysmith.ca:5000/logout", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+      credentials: "include"
+    })
+      .then(x => x.json())
+      .then(json => {
+        if (json.res === true) {
+          ToastAndroid.show("logout successful", ToastAndroid.SHORT);
+          this.props.logOut(true);
+          console.log("in logout function")
+          Navigation.startSingleScreenApp({
+            screen: {
+              title: 'Spot!',
+              screen: 'spot.LoginScreen',
+              navigatorStyle: { navBarHidden: true }
+            }
+          });
+        } else {
+          ToastAndroid.show("could not log out", ToastAndroid.SHORT);
+        }
+      });
+
+  };
 }
 
-logOut = () => {
-  let data = {
-    res: "I logged out bitch"
-  };
-  fetch("http://jodysmith.ca:5000/logout", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json"
-    },
-    body: JSON.stringify(data),
-    credentials: "include"
-  })
-    .then(x => x.json())
-    .then(json => {
-      if (json.res === true) {
-        ToastAndroid.show("logout successful", ToastAndroid.SHORT);
-      } else {
-        ToastAndroid.show("could not log out", ToastAndroid.SHORT);
-      }
-    });
-};
+
 
 const styles = StyleSheet.create({
   container: {

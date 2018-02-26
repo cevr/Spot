@@ -65,7 +65,7 @@ Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 Navigation.startSingleScreenApp({
     screen: {
         title: 'Spot!',
-        screen: 'spot.Auth',
+        screen: 'spot.LoginScreen',
         navigatorStyle: { navBarHidden: true }
     }
 });

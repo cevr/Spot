@@ -15,38 +15,39 @@ class Login extends Component {
   state = {};
 
   login = () => {
-    let data = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    console.log(data);
-    fetch("http://jodysmith.ca:5000/login", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
+    // let data = {
+    //   email: this.state.email,
+    //   password: this.state.password
+    // };
+    // console.log(data);
+    // fetch("http://jodysmith.ca:5000/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
 
-      },
-      body: JSON.stringify(data),
-      credentials: "include"
-    })
-      .then(res => res.json())
-      .then(x => {
-        console.log(x)
+    //   },
+    //   body: JSON.stringify(data),
+    //   credentials: "include"
+    // })
+    //   .then(res => res.json())
+    //   .then(x => {
+    //     console.log(x)
 
-        if (x.err) {
-          ToastAndroid.show(x.err, ToastAndroid.SHORT);
+    //     if (x.err) {
+    //       ToastAndroid.show(x.err, ToastAndroid.SHORT);
           
-          // startTabs;
-        } else {
-          //this.props.logIn(true);
-          console.log("")
-          startTabs();
-        }
+    //       // startTabs;
+    //     } else {
+    //       //this.props.logIn(true);
+    //       console.log("")
+    //       startTabs();
+    //     }
 
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    startTabs();
   }
 
   showSignup = () => {
@@ -113,6 +114,9 @@ const mapDispatchtoProps = dispatch => {
   return {
     logIn: () => {
       dispatch(logIn);
+    },
+    logOut: () => {
+      dispatch(logOut)
     }
   };
 };
