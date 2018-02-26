@@ -1,6 +1,6 @@
 const initialState = {
     isLoggedIn: false,
-    count: 1
+    isSignedUp: false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -10,18 +10,21 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: true
             };
-            break;
 
         case 'LOG_OUT':
             return {
                 ...state,
                 isLoggedIn: false
             };
-            break;
         case 'SET_DATA':
             return {
                 ...state,
                 data: action.data
+            };
+        case 'SIGN_UP_SUCCESSFUL':
+            return {
+                ...state,
+                isSignedUp: action.boolean
             };
         default:
             return state;

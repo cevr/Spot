@@ -1,126 +1,100 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn } from '../../redux/actions';
+import { logIn, attemptLogIn } from '../../redux/actions';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  ToastAndroid,
-  TextInput
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    ToastAndroid,
+    TextInput
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
-import { Button } from '../../UI';
+import { Button, DefaultTextInput, H2 } from '../../UI';
 class Login extends Component {
-  state = {};
+    state = {};
 
-  login = () => {
-    let data = {
-      email: this.state.email,
-      password: this.state.password
+    login = () => {
+        let userData = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        this.props.logIn(userData);
     };
-    console.log(data);
-    fetch("http://jodysmith.ca:5000/login", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
+    componentDidUpdate() {
+        if (this.props.isLoggedIn) startTabs();
+    }
+    showSignup = () => {
+        ToastAndroid.show('signup', ToastAndroid.SHORT);
+        this.props.navigator.showModal({
+            screen: 'spot.SignupScreen',
+            title: 'Sign Up',
+            animated: true
+        });
+    };
 
-      },
-      body: JSON.stringify(data),
-      credentials: "include"
-    })
-      .then(res => res.json())
-      .then(x => {
-        console.log(x)
-
-        if (x.err) {
-          ToastAndroid.show(x.err, ToastAndroid.SHORT);
-          
-          // startTabs;
-        } else {
-          //this.props.logIn(true);
-          console.log("")
-          startTabs();
-        }
-
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  showSignup = () => {
-    ToastAndroid.show('signup', ToastAndroid.SHORT)
-    this.props.navigator.showModal({
-      screen: "spot.SignupScreen",
-      title: "Sign Up",
-      animated: true,
-
-    })
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Login</Text>
-        <TextInput
-          style={styles.textInput}
-          ref={x => {
-            this.email = x;
-          }}
-          onChangeText={text => this.setState({ email: text })}
-          placeholder="Email Address"
-        />
-        <TextInput
-          style={styles.textInput}
-          ref={x => {
-            this.password = x;
-          }}
-          onChangeText={text => this.setState({ password: text })}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-        <Button onPress={this.login} title="Login" />
-        <Text onPress={this.showSignup}>
-          Don't have an account? Sign up
-        </Text>
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={styles.container}>
+                <H2 style={{ color: '#F6F6F6' }}>Spot!</H2>
+                <DefaultTextInput
+                    style={styles.textInput}
+                    ref={x => {
+                        this.email = x;
+                    }}
+                    onChangeText={text => this.setState({ email: text })}
+                    placeholder="Email Address"
+                />
+                <DefaultTextInput
+                    style={styles.textInput}
+                    ref={x => {
+                        this.password = x;
+                    }}
+                    onChangeText={text => this.setState({ password: text })}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                />
+                <Button onPress={this.login} title="Login" />
+                <Text style={{ color: '#F6F6F6' }} onPress={this.showSignup}>
+                    Don't have an account? Sign up
+                </Text>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFF'
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  innerContainer: {
-    alignItems: 'center'
-  },
-  textInput: {
-    height: 45,
-    width: 280
-  }
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#890B0E'
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    innerContainer: {
+        alignItems: 'center'
+    },
+    textInput: {
+        height: 45,
+        width: 280
+    }
 });
 
 const mapDispatchtoProps = dispatch => {
-  return {
-    logIn: () => {
-      dispatch(logIn);
-    }
-  };
+    return {
+        logIn: userData => {
+            dispatch(attemptLogIn(userData));
+        }
+    };
 };
 
-// const mapStatetoProps = state => {
-//   return {
-//     isLoggedIn: state.isLoggedIn
-//   }
-// }
+const mapStatetoProps = state => {
+    return {
+        isLoggedIn: state.isLoggedIn
+    };
+};
 
-export default connect(null, mapDispatchtoProps)(Login);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Login);

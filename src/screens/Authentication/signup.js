@@ -9,48 +9,27 @@ import {
     Modal,
     TextInput
 } from 'react-native';
+import { connect } from 'react-redux';
+import { attemptSignUp } from '../../redux/actions';
 class SignUp extends Component {
     state = {};
 
-    onPressTest = () => {
-        let data = {
+    signUp = () => {
+        let userData = {
             email: this.state.email,
             password: this.state.password
         };
-        console.log(data);
-        fetch('http://jodysmith.ca:5000/signup', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(data),
-            credentials: 'include'
-        })
-            .then(res => res.json())
-            .then(json => {
-                console.log(json)
-                if (json.res) {
-                    ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
-                } else {
-                    ToastAndroid.show('sign up failed', ToastAndroid.SHORT)
-                }
-            })
-            .catch(err => {
-                console.log(err);
+        this.props.signUp(userData);
+    };
+    componentDidUpdate() {
+        if (this.props.isSignedUp) {
+            this.props.navigator.dismissModal({
+                animationType: 'slide-down'
             });
-        this.props.navigator.dismissModal({
-            animationType: 'slide-down'
-        });
-
-    }
-
-    //Regular expression for email address
-    validateEmail = (email) => {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+        }
     }
     //Render the Sign Up modal after pressing the Sign up button.
-    renderSignUp() {
+    renderSignUp = () => {
         return (
             <View style={styles.container}>
                 <TextInput
@@ -74,13 +53,9 @@ class SignUp extends Component {
                 <Button onPress={this.onPressTest} title="Sign Up" />
             </View>
         );
-    }
+    };
     render() {
-        return (
-            <View style={styles.container}>
-                {this.renderSignUp()}
-            </View>
-        );
+        return <View style={styles.container}>{this.renderSignUp()}</View>;
     }
 }
 const styles = StyleSheet.create({
@@ -103,5 +78,18 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = state => {
+    return {
+        isSignedUp: state.isSignedUp
+    };
+};
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+    return {
+        signUp: userData => {
+            dispatch(attemptSignUp(userData));
+        }
+    };
+};
+
+export default connect()(SignUp);
