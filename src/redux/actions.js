@@ -98,3 +98,10 @@ export const setData = data => {
         data
     };
 };
+
+export const updatePosition = coordinates => {
+    return {
+        type: 'SET_COORDINATES',
+        coordinates
+    };
+};

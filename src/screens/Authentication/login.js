@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
 import { Button, DefaultTextInput, H2 } from '../../UI';
+import { navigatorStyle } from '../../Tabs/startTabs';
 class Login extends Component {
     state = {};
 
@@ -29,7 +30,8 @@ class Login extends Component {
         this.props.navigator.showModal({
             screen: 'spot.SignupScreen',
             title: 'Sign Up',
-            animated: true
+            animated: true,
+            navigatorStyle
         });
     };
 

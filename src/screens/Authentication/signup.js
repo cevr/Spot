@@ -4,13 +4,14 @@ import {
     StyleSheet,
     Text,
     View,
-    Button,
     ToastAndroid,
     Modal,
     TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { attemptSignUp } from '../../redux/actions';
+import { Button, DefaultTextInput, H2 } from '../../UI';
+
 class SignUp extends Component {
     state = {};
 
@@ -29,10 +30,12 @@ class SignUp extends Component {
         }
     }
     //Render the Sign Up modal after pressing the Sign up button.
-    renderSignUp = () => {
+
+    render() {
         return (
             <View style={styles.container}>
-                <TextInput
+                <H2 style={{ color: '#890B0E' }}>Spot!</H2>
+                <DefaultTextInput
                     style={styles.textInput}
                     ref={x => {
                         this.email = x;
@@ -41,7 +44,7 @@ class SignUp extends Component {
                     placeholder="Email address"
                     keyboardType={'email-address'}
                 />
-                <TextInput
+                <DefaultTextInput
                     style={styles.textInput}
                     ref={x => {
                         this.password = x;
@@ -50,12 +53,9 @@ class SignUp extends Component {
                     placeholder="Password"
                     secureTextEntry={true}
                 />
-                <Button onPress={this.onPressTest} title="Sign Up" />
+                <Button onPress={this.signUp} title="Sign Up" />
             </View>
         );
-    };
-    render() {
-        return <View style={styles.container}>{this.renderSignUp()}</View>;
     }
 }
 const styles = StyleSheet.create({
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFF'
+        backgroundColor: '#F6F6F6'
     },
     modalContainer: {
         flex: 1,

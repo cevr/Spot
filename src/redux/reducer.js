@@ -26,6 +26,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 isSignedUp: action.boolean
             };
+        case 'SET_COORDINATES':
+            return {
+                ...state,
+                coordinates: action.coordinates
+            };
         default:
             return state;
     }

@@ -115,7 +115,7 @@ class H6 extends Component {
 const styles = StyleSheet.create({
     input: {
         width: '100%',
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#890B0E',
         borderRadius: 50,
         padding: 5,
