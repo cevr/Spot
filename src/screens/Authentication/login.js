@@ -78,6 +78,7 @@ class Login extends Component {
           }}
           onChangeText={text => this.setState({ password: text })}
           placeholder="Password"
+          secureTextEntry={true}
         />
         <Button onPress={this.login} title="Login" />
         <Text onPress={this.showSignup}>
