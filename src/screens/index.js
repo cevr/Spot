@@ -2,11 +2,10 @@ import HomeScreen from "./HomeScreen/HomeScreen";
 import Login from "./Authentication/login";
 import Signup from "./Authentication/signup";
 import AddMessagesScreen from "./AddMessagesScreen/AddMessagesScreen";
-import LocationScreen from "./LocationScreen/LocationScreen";
-import ProfileScreen from "./ProfileScreen/ProfileScreen";
+import AllMessagesScreen from "./AllMessagesScreen/AllMessagesScreen";
+import CardPopUp from "./HomeScreen/Components/CardPopUp";
 import SettingsScreen from "./SettingsScreen/SettingsScreen";
-import SideDrawer from "./SideDrawer/SideDrawer";
-import AddLocationScreen from "./AddMessagesScreen/addLocation";
+import AddLocationScreen from "./AddMessagesScreen/AddLocation";
 import Auth from "./Auth";
 import Test from "../Test";
 
@@ -16,10 +15,9 @@ export {
   Signup,
   AddLocationScreen,
   AddMessagesScreen,
-  LocationScreen,
-  ProfileScreen,
+  AllMessagesScreen,
+  CardPopUp,
   SettingsScreen,
-  SideDrawer,
   Auth,
   Test
 };

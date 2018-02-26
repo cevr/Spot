@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { View, ToastAndroid, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { setData } from "../../redux/actions";
-// import MapView from 'react-native-maps';
-import { checkLocation } from "../../Global/api";
 import data from "../../Global/fakeData";
-import CardList from "./Components/CardList";
-class HomeScreen extends Component {
+import CardList from "../HomeScreen/Components/CardList";
+export default class AllMessagesScreen extends Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    this.state = { data };
   }
   onNavigatorEvent = event => {
     if (event.type === "NavBarButtonPress") {
@@ -20,14 +19,11 @@ class HomeScreen extends Component {
       }
     }
   };
-  componentDidMount() {
-    this.props.setData(data);
-  }
-
   render() {
+    const { data } = this.state;
     return (
       <View style={styles.CardList}>
-        <CardList data={this.props.data} navigator={this.props.navigator} />
+        <CardList data={data} navigator={this.props.navigator} />
       </View>
     );
   }
@@ -39,16 +35,3 @@ const styles = StyleSheet.create({
     margin: 40
   }
 });
-const mapStatetoProps = state => {
-  return {
-    data: state.data
-  };
-};
-const mapDispatchtoProps = dispatch => {
-  return {
-    setData: data => {
-      dispatch(setData(data));
-    }
-  };
-};
-export default connect(mapStatetoProps, mapDispatchtoProps)(HomeScreen);

@@ -10,6 +10,7 @@ import {
   Picker
 } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
+import { fetchCoordinates } from "../../Global/api";
 
 export default class NewLocation extends Component {
   constructor(props) {
@@ -20,28 +21,15 @@ export default class NewLocation extends Component {
     };
   }
 
-  //this fetch will be handled in backend
-  async fetchCoordinates(location) {
-    let proxy = `https://cors-anywhere.herokuapp.com/`;
-    let gmaps = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBir9MEzI0sPVqb1RltNNZh7WA9YcyNa9U`;
-    let region = await fetch(gmaps)
-      .then(raw => raw.json())
-      .then(coordinates => {
-        let region = {
-          coordinates: {
-            latitude: coordinates.results[0].geometry.location.lat,
-            longitude: coordinates.results[0].geometry.location.lng
-          },
-          radius: this.state.radius
-        };
-        this.setState({ region });
-        return region;
-      });
-    return region;
+  componentDidMount() {
+    console.log("ADDLOC MOUNT REGION", this.state.region);
   }
 
   enterLocation = async () => {
-    let region = await this.fetchCoordinates(this.state.inpLocation);
+    let region = {
+      ...(await fetchCoordinates(this.state.inpLocation)),
+      radius: this.state.region.radius
+    };
     this.props.setLocation(region);
     this.props.navigator.dismissLightBox();
   };
@@ -60,9 +48,11 @@ export default class NewLocation extends Component {
           />
           <Picker
             prompt="Radius"
-            selectedValue={this.state.radius}
+            selectedValue={this.state.region.radius}
             onValueChange={(itemValue, itemIndex) =>
-              this.setState({ radius: itemValue })
+              this.setState({
+                region: { ...this.state.region, radius: itemValue }
+              })
             }
             style={styles.picker}
           >

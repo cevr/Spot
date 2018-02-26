@@ -10,6 +10,7 @@ import {
   ToastAndroid
 } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
+import { createMessage } from "../../Global/api";
 
 export default class AddMessagesScreen extends Component {
   constructor() {
@@ -17,17 +18,18 @@ export default class AddMessagesScreen extends Component {
     this.state = {
       region: {
         coordinates: {
+          //Default coordinates - Montreal
           latitude: 45.5017,
           longitude: -73.5673
         },
-        radius: 0
+        radius: 15
       },
       msg: "",
       title: ""
     };
   }
 
-  newLocation = () => {
+  addLocation = () => {
     this.props.navigator.showLightBox({
       screen: "spot.AddLocationScreen",
       passProps: {
@@ -38,28 +40,19 @@ export default class AddMessagesScreen extends Component {
   };
 
   setLocation = region => {
+    console.log("SETTING LOCATION", region);
     this.setState({ region });
   };
 
   submitMsg = () => {
-    fetch("http://jodysmith.ca:5000/listCreate", {
-      credentials: "include",
-      method: "POST",
-      body: JSON.stringify({
-        title: this.state.title,
-        list: [this.state.msg],
-        lat: this.state.region.coordinates.latitude,
-        long: this.state.region.coordinates.longitude,
-        rad: this.state.region.radius
-      })
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(res => {
-        if (!res.res)
-          ToastAndroid.show("Could not create message", ToastAndroid.SHORT);
-      });
+    let reqBody = {
+      title: this.state.title,
+      list: [this.state.msg],
+      lat: this.state.region.coordinates.latitude,
+      long: this.state.region.coordinates.longitude,
+      rad: this.state.region.radius
+    };
+    createMessage(reqBody);
     this.setState({
       region: {
         coordinates: {
@@ -118,7 +111,7 @@ export default class AddMessagesScreen extends Component {
         </View>
         <View>
           <View style={styles.button}>
-            <Button title="Add Location" onPress={this.newLocation} />
+            <Button title="Add Location" onPress={this.addLocation} />
           </View>
           <View style={styles.button}>
             <Button

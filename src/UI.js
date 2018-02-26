@@ -30,8 +30,8 @@ const DefaultText = props => {
 const Button = props => {
     return (
         <Touchable onPress={props.onPress}>
-            <View elevation={10} style={[styles.button, props.style]}>
-                <Text style={{ color: '#FF5A60', fontSize: 17 }}>
+            <View elevation={5} style={[styles.button, props.style]}>
+                <Text style={{ color: '#890B0E', fontSize: 17 }}>
                     {props.title}
                 </Text>
             </View>
@@ -98,17 +98,19 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         borderWidth: 1,
-        borderColor: '#eee',
+        borderColor: '#890B0E',
         padding: 5,
-        margin: 8
+        marginTop: 8,
+        marginBottom: 8
     },
     button: {
         alignItems: 'center',
-        margin: 7,
+        marginTop: 7,
+        marginBottom: 7,
         padding: 10,
-        borderRadius: 5,
-        borderColor: '#FF5A60',
-        backgroundColor: '#FFF',
+        borderRadius: 2,
+        borderColor: '#890B0E',
+        backgroundColor: '#F6F6F6',
         borderWidth: 2
     },
     text: {
