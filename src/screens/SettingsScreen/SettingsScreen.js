@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Navigation } from 'react-native-navigation';
+import { connect } from 'react-redux';
+import { logOut } from '../../redux/actions';
 import {
   View,
   Text,
@@ -103,5 +105,12 @@ const myButton = (
     Log out
   </Icon.Button>
 );
+const mapDispatchtoProps = dispatch => {
+  return {
+    logOut: () => {
+      dispatch(logOut)
+    }
+  };
+};
 
-export default SettingsScreen;
+export default connect(null,mapDispatchtoProps)(SettingsScreen);
