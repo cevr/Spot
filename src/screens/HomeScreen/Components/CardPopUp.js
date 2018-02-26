@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ToastAndroid } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
+import { listRead } from "../../../Global/api";
 
 export default class CardPopUp extends Component {
   constructor() {
@@ -12,11 +13,15 @@ export default class CardPopUp extends Component {
     this.setState({ mapReady: true });
   };
 
-  componentDidMount() {
-    console.log("CARDPOPUP PROPS", this.props);
+  async componentDidMount() {
+    let data = await listRead(this.props.id);
+    if (data.title) {
+      this.setState({ data });
+    } else ToastAndroid.show(data.reason, ToastAndroid.SHORT);
   }
 
   render() {
+    // if (this.state.data) {
     return (
       <View style={styles.container}>
         <Text style={styles.msgBody}>
@@ -58,6 +63,7 @@ export default class CardPopUp extends Component {
       </View>
     );
   }
+  // }
 }
 
 const styles = StyleSheet.create({
