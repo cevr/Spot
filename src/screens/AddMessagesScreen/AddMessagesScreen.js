@@ -7,7 +7,8 @@ import {
   ScrollView,
   View,
   Button,
-  ToastAndroid
+  ToastAndroid,
+  Dimensions
 } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
 import { createMessage } from "../../Global/api";

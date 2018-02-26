@@ -17,7 +17,7 @@ export default (Card = props => (
         title: props.cardData.title,
         passProps: {
           ...Object.assign({}, props.cardData),
-          items: props.cardData.items[0]
+          id: props.cardData._id
         }
       });
     }}
@@ -29,15 +29,7 @@ export default (Card = props => (
           flexDirection: "row",
           alignSelf: "flex-end"
         }}
-      >
-        {/* <Text
-          style={{
-            fontSize: 10
-          }}
-        >
-          {props.cardData.items[0]}
-        </Text> */}
-      </View>
+      />
     </View>
   </Touchable>
 ));

@@ -1,4 +1,5 @@
 import { ToastAndroid } from "react-native";
+const url = "https://jodysmith.ca/";
 
 //used to get coordinates from address in AddMessageScreen
 export const fetchCoordinates = async location => {
@@ -32,6 +33,7 @@ export const createMessage = reqBody => {
     });
 };
 
+//check user's location against lists in DB, return all matching lists
 export const checkLocation = async (lat, long) => {
   let response = await fetch("http://jodysmith.ca:5000/locCheck", {
     credentials: "include",
@@ -47,4 +49,21 @@ export const checkLocation = async (lat, long) => {
       return res;
     });
   return response;
+};
+
+//get info of a single list (onClick)
+export const listRead = async listId => {
+  let response = await fetch("http://jodysmith.ca:5000/listRead", {
+    credentials: "include",
+    method: "POST",
+    body: JSON.stringify({ listId })
+  })
+    .then(res => res.json())
+    .then(res => {
+      if (res.res !== false) {
+        //backend not sending res.res when successful
+        return res[0];
+      }
+      return res;
+    });
 };

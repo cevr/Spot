@@ -1,6 +1,6 @@
 const data = [
   {
-    id: "xyz789",
+    _id: "xyz789",
     title: "Grocery List",
     items: ["Bread\nMilk\nEggs"],
     lat: 45.492108,
@@ -8,7 +8,7 @@ const data = [
     rad: 15
   },
   {
-    id: "xyz678,",
+    _id: "xyz678,",
     title: "Buy bus pass!",
     items: [],
     lat: 45.5149,
@@ -16,7 +16,7 @@ const data = [
     rad: 30
   },
   {
-    id: "asd123",
+    _id: "asd123",
     title: "Home List",
     items: ["Don't forget, pack lunch in bag!"],
     lat: 45.517507,
@@ -24,7 +24,7 @@ const data = [
     rad: 15
   },
   {
-    id: "abc123",
+    _id: "abc123",
     title: "Buy girlfriend a gift",
     items: [
       "Heard some nice makeup is a huge hit. Now just have to get a girlfriend!"
