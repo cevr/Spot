@@ -21,7 +21,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 data: action.data
             };
-        case 'SIGN_UP_SUCCESSFUL':
+        case 'SIGN_UP':
             return {
                 ...state,
                 isSignedUp: action.boolean
