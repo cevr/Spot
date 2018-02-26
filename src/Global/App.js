@@ -46,6 +46,7 @@ Navigation.registerComponent(
   Store,
   Provider
 );
+
 Navigation.registerComponent(
   "spot.SettingsScreen",
   () => screens.SettingsScreen,

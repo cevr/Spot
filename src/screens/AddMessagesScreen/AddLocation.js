@@ -21,10 +21,6 @@ export default class NewLocation extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log("ADDLOC MOUNT REGION", this.state.region);
-  }
-
   enterLocation = async () => {
     let region = {
       ...(await fetchCoordinates(this.state.inpLocation)),
