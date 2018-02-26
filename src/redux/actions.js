@@ -13,8 +13,6 @@ export const attemptLogIn = userData => {
                 console.log(x);
 
                 if (x.err) {
-                    ToastAndroid.show(x.err, ToastAndroid.SHORT);
-
                     // startTabs;
                 } else {
                     //this.props.logIn(true);
@@ -41,7 +39,6 @@ export const attemptSignUp = userData => {
             .then(json => {
                 console.log(json);
                 if (json.res) {
-                    ToastAndroid.show('sign up successful', ToastAndroid.SHORT);
                     dispatch(signUp(true));
                 } else {
                     ToastAndroid.show('sign up failed', ToastAndroid.SHORT);
