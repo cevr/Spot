@@ -69,3 +69,14 @@ export const listUpdate = async (listid, reqKey, reqValue) => {
             return json.res;
         });
 };
+
+export const SignUpPage = () => {
+  Navigation.startSingleScreenApp({
+    screen: {
+        title: 'Spot!',
+        screen: 'spot.LoginScreen',
+        navigatorStyle: { navBarHidden: true }
+    }
+});
+
+}

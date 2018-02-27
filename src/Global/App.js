@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import * as screens from '../screens/index';
 import configureStore from '../redux/store';
 import startTabs from '../Tabs/startTabs';
+import { SignUpPage } from './api';
 //this initializes the global state
 const Store = configureStore();
 
@@ -64,13 +65,9 @@ Navigation.registerComponent(
 Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 
 // Promise.resolve(AsyncStorage.getItem('spot:sessionID')).then(res => {
-//     console.log(res).catch(err => console.log(err));
+//     // startTabs();
+
+//     console.log('ASY`NC STORAGE!!!!!!!!!!!!', res);
+//     SignUpPage();
 // });
-// startTabs();
-Navigation.startSingleScreenApp({
-    screen: {
-        title: 'Spot!',
-        screen: 'spot.LoginScreen',
-        navigatorStyle: { navBarHidden: true }
-    }
-});
+SignUpPage();

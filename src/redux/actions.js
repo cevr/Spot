@@ -1,11 +1,10 @@
 import { AsyncStorage } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { SignUpPage } from '../Global/api';
-const url = 'https://jodysmith.ca/';
 
 export const attemptLogIn = userData => {
     return dispatch => {
-        fetch('http://jodysmith.ca:5000/login', {
+        fetch('https://jodysmith.ca/login', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -19,8 +18,8 @@ export const attemptLogIn = userData => {
 
                 if (json.err) {
                 } else {
-                    dispatch(logIn(true));
-                    dispatch(storeSession(json.sessionid));
+                    dispatch(logIn());
+                    dispatch(storeSession(json));
                 }
             })
             .catch(err => {
@@ -30,7 +29,7 @@ export const attemptLogIn = userData => {
 };
 export const attemptSignUp = userData => {
     return dispatch => {
-        fetch('http://jodysmith.ca:5000/signup', {
+        fetch('https://jodysmith.ca/signup', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -56,7 +55,7 @@ export const attemptSignUp = userData => {
 export const attemptLogOut = data => {
     return dispatch => {
         ToastAndroid.show('clicked', ToastAndroid.SHORT);
-        fetch('http://jodysmith.ca:5000/logout', {
+        fetch('https://jodysmith.ca/logout', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -113,7 +112,7 @@ export const updatePosition = coordinates => {
 export const storeSession = sessionID => {
     return dispatch => {
         dispatch();
-        AsyncStorage.setItem('spot:sessionID', sessionID);
+        AsyncStorage.setItem('spot:sessionID', JSON.stringify(sessionID));
     };
 };
 export const checkSessionID = () => {
@@ -136,7 +135,7 @@ export const checkLocation = coordinates => {
         dispatch(UILoading());
         const lat = coordinates.latitude,
             long = coordinates.longitude;
-        fetch(url + 'locCheck', {
+        fetch('https://jodysmith.ca/locCheck', {
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify({ lat, long })
@@ -147,7 +146,7 @@ export const checkLocation = coordinates => {
 
                 //if res.res exists, it is a failure
                 if (res.res) {
-                    dispatch(setError());
+                    dispatch(listEmpty());
                 } else {
                     dispatch(setData(res));
                     dispatch(UINotLoading());
@@ -158,7 +157,7 @@ export const checkLocation = coordinates => {
 
 export const listReadAll = () => {
     return dispatch => {
-        fetch(url + 'listReadAll', {
+        fetch('https://jodysmith.ca/listReadAll', {
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify({ showme: 'lists' })

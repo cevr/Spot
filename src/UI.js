@@ -129,6 +129,16 @@ class Loading extends Component {
     }
 }
 
+class ListEmpty extends Component {
+    render() {
+        return (
+            <View style={styles.container}>
+                <H3>No messages at your location! :(</H3>
+            </View>
+        );
+    }
+}
+
 const styles = StyleSheet.create({
     input: {
         width: '100%',
@@ -197,5 +207,6 @@ export {
     H4,
     H5,
     H6,
-    Loading
+    Loading,
+    ListEmpty
 };

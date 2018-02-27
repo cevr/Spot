@@ -22,7 +22,7 @@ import {
 // import MapView from 'react-native-maps';
 import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
-import { Loading } from '../../UI';
+import { Loading, ListEmpty } from '../../UI';
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -53,7 +53,7 @@ class HomeScreen extends Component {
     };
 
     updateCoordinates = () => {
-        navigator.geolocation.watchPosition(
+        let clearID = navigator.geolocation.watchPosition(
             pos => {
                 console.log('MOVING!!!', pos);
                 this.props.setCoordinates(pos.coords);
@@ -66,11 +66,9 @@ class HomeScreen extends Component {
                 distanceFilter: 5
             }
         );
+        return clearID;
     };
 
-    componentDidUpdate() {
-        this.updateCoordinates();
-    }
     componentWillMount() {
         this.props.checkSessionID();
     }
@@ -78,17 +76,15 @@ class HomeScreen extends Component {
         console.log(this.props.data);
         this.getCoordinates();
     }
-    componentWillUpdate() {
-        if (this.props.isLoggedIn === false) {
-            // Start the react Navigation wrapped App
-        } else {
-            this.updateCoordinates();
-        }
+    componentDidUpdate() {
+        this.updateCoordinates();
     }
 
     render() {
         return this.props.isLoading ? (
             <Loading />
+        ) : this.props.data.length === 0 ? (
+            <ListEmpty />
         ) : (
             <View style={styles.CardList}>
                 {this.props.coordinates && (
