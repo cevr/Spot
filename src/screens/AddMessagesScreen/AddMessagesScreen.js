@@ -24,10 +24,9 @@ export default class AddMessagesScreen extends Component {
           longitude: -73.5673
         },
         radius: 15
-      },
-      msg: "",
-      title: ""
+      }
     };
+    this.msg = "";
   }
 
   addLocation = () => {
@@ -41,26 +40,31 @@ export default class AddMessagesScreen extends Component {
   };
 
   setLocation = region => {
-    console.log("SETTING LOCATION", region);
     this.setState({ region });
   };
 
   submitMsg = () => {
+    if (!this.state.title) {
+      ToastAndroid.show("Please enter a message title.", ToastAndroid.SHORT);
+    }
+    console.log("SUBMITTING MESSAGE");
     let reqBody = {
       title: this.state.title,
-      list: [this.state.msg],
+      list: this.state.msg,
       lat: this.state.region.coordinates.latitude,
       long: this.state.region.coordinates.longitude,
       rad: this.state.region.radius
     };
     createMessage(reqBody);
+    this.title.clear();
+    this.msg.clear();
     this.setState({
       region: {
         coordinates: {
           latitude: 45.5017,
           longitude: -73.5673
         },
-        radius: 0
+        radius: 15
       }
     });
   };
@@ -79,6 +83,7 @@ export default class AddMessagesScreen extends Component {
             style={styles.msgTitle}
             underlineColorAndroid="transparent"
             maxLength={40}
+            ref={text => (this.title = text)}
             onChangeText={text => this.setState({ title: text })}
           />
           <TextInput
@@ -88,6 +93,7 @@ export default class AddMessagesScreen extends Component {
             underlineColorAndroid="transparent"
             multiline={true}
             maxLength={256}
+            ref={text => (this.msg = text)}
             onChangeText={text => this.setState({ msg: text })}
           />
         </View>
