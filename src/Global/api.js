@@ -19,7 +19,7 @@ export const fetchCoordinates = async location => {
 
 //creates a message; sends message & location data to backend, used in AddMessageScreen
 export const createMessage = reqBody => {
-  fetch("http://jodysmith.ca:5000/listCreate", {
+  fetch(url + "listCreate", {
     credentials: "include",
     method: "POST",
     body: JSON.stringify(reqBody)
@@ -33,27 +33,9 @@ export const createMessage = reqBody => {
     });
 };
 
-//check user's location against lists in DB, return all matching lists
-export const checkLocation = async (lat, long) => {
-  let response = await fetch("http://jodysmith.ca:5000/locCheck", {
-    credentials: "include",
-    method: "POST",
-    body: JSON.stringify({ lat, long })
-  })
-    .then(res => res.json())
-    .then(res => {
-      console.log("response body: ", res);
-      if (res.res) {
-        return [];
-      }
-      return res;
-    });
-  return response;
-};
-
-//get info of a single list (onClick)
+//get info of a single list (onCardPress)
 export const listRead = async listId => {
-  let response = await fetch("http://jodysmith.ca:5000/listRead", {
+  let response = await fetch(url + "listRead", {
     credentials: "include",
     method: "POST",
     body: JSON.stringify({ listId })
@@ -65,5 +47,22 @@ export const listRead = async listId => {
         return res[0];
       }
       return res;
+    });
+};
+
+//update info of a single list
+export const listUpdate = async (listid, reqKey, reqValue) => {
+  let reqBody = { listid, reqKey, reqValue };
+  fetch(url + "listUpdate", {
+    credentials: "include",
+    method: "POST",
+    body: JSON.stringify(reqBody)
+  })
+    .then(res => res.json())
+    .then(json => {
+      if (json.err) {
+        return json.err;
+      }
+      return json.res;
     });
 };
