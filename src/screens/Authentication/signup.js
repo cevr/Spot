@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect()(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
