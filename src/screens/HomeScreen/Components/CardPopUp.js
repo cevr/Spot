@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, ToastAndroid } from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
+import { connect } from 'react-redux';
 import { listRead } from '../../../Global/api';
+import { listUpdate } from '../../../redux/actions';
+import { Button } from '../../../UI';
 
-export default class CardPopUp extends Component {
+class CardPopUp extends Component {
     constructor() {
         super();
         this.state = { mapReady: false };
-    }
-
-    componentDidMount() {
-        console.log('CARDPOPUP PROPS', this.props.info);
     }
 
     mapReady = () => {
@@ -18,13 +17,26 @@ export default class CardPopUp extends Component {
     };
 
     render() {
-        const { info } = this.props;
+        const { info, listUpdate } = this.props;
         return (
             <View style={styles.container}>
                 <Text style={styles.msgBody}>
                     {info.items[0] || 'No message to display'}
                 </Text>
-                <Text>{info.read ? 'READ' : 'UNREAD'}</Text>
+                <View>
+                    <Button
+                        title="Mark as read"
+                        // onPress={() =>
+                        //     listUpdate({
+                        //         listid: info._id,
+                        //         reqKey: 'read',
+                        //         reqValue: true
+                        //     })
+                        // }
+                        color="#890B0E"
+                    />
+                    <Text>{info.read ? 'READ' : 'UNREAD'}</Text>
+                </View>
                 <View style={styles.mapContainer}>
                     <MapView
                         region={{
@@ -92,3 +104,13 @@ const styles = StyleSheet.create({
         bottom: 0
     }
 });
+
+const mapDispatchtoProps = dispatch => {
+    return {
+        listUpdate: payload => {
+            dispatch(listUpdate(payload));
+        }
+    };
+};
+
+export default connect(null, mapDispatchtoProps)(CardPopUp);

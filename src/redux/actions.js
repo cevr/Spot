@@ -183,6 +183,23 @@ export const listReadAll = () => {
     };
 };
 
+export const listUpdate = reqBody => {
+    console.log('LISTUPDATE PAYLOAD', reqBody);
+    return dispatch => {
+        fetch('http://jodysmith.ca:5000/listUpdate', {
+            credentials: 'include',
+            method: 'PUT',
+            body: JSON.stringify(reqBody)
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log('LISTUPDATE JSON', json);
+                if (json.err) dispatch(setError());
+                if (json.res) dispatch({});
+            });
+    };
+};
+
 export const setError = () => {
     return {
         type: 'SET_ERROR'

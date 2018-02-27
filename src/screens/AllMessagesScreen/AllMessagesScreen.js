@@ -3,7 +3,8 @@ import { View, ToastAndroid, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { listReadAll } from '../../redux/actions';
 import CardList from '../HomeScreen/Components/CardList';
-import { Loading } from '../../UI';
+import { Loading, Button } from '../../UI';
+import { navigatorStyle } from '../../Tabs/startTabs';
 class AllMessagesScreen extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,14 @@ class AllMessagesScreen extends Component {
         this.props.listReadAll();
     }
 
+    enterMap = () => {
+        this.props.navigator.showModal({
+            title: 'Map View',
+            screen: 'spot.MapModal',
+            navigatorStyle
+        });
+    };
+
     render() {
         return this.props.isLoading ? (
             <Loading />
@@ -32,6 +41,9 @@ class AllMessagesScreen extends Component {
                     data={this.props.allMessages}
                     navigator={this.props.navigator}
                 />
+                <View>
+                    <Button title="Map View" onPress={this.enterMap} />
+                </View>
             </View>
         );
     }
