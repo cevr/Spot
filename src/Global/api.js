@@ -20,16 +20,15 @@ export const fetchCoordinates = async location => {
 
 //creates a message; sends message & location data to backend, used in AddMessageScreen
 export const createMessage = reqBody => {
-    fetch(url + 'listCreate', {
+    fetch('http://jodysmith.ca:5000/listCreate', {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(reqBody)
     })
-        .then(res => {
-            return res.json();
-        })
-        .then(res => {
-            if (!res.res)
+        .then(res => res.json())
+        .then(json => {
+            console.log('CREATE MESSAGE RESPONSE', json);
+            if (!json.res)
                 ToastAndroid.show(
                     'Could not create message',
                     ToastAndroid.SHORT
@@ -39,7 +38,7 @@ export const createMessage = reqBody => {
 
 //get info of a single list (onCardPress)
 export const listRead = async listId => {
-    let response = await fetch(url + 'listRead', {
+    let response = await fetch('http://jodysmith.ca:5000/listRead', {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify({ listId })
@@ -57,7 +56,7 @@ export const listRead = async listId => {
 //update info of a single list
 export const listUpdate = async (listid, reqKey, reqValue) => {
     let reqBody = { listid, reqKey, reqValue };
-    fetch(url + 'listUpdate', {
+    fetch('http://jodysmith.ca:5000/listUpdate', {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(reqBody)
@@ -69,15 +68,4 @@ export const listUpdate = async (listid, reqKey, reqValue) => {
             }
             return json.res;
         });
-};
-
-//SignUp Page
-export const SignUpPage = () => {
-    Navigation.startSingleScreenApp({
-        screen: {
-            title: 'Spot!',
-            screen: 'spot.LoginScreen',
-            navigatorStyle: { navBarHidden: true }
-        }
-    });
 };
