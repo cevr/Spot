@@ -176,7 +176,7 @@ export const listReadAll = () => {
                 if (json.res === false) {
                     dispatch(setError());
                 } else {
-                    dispatch(setAllMessages(json[0]));
+                    dispatch(setAllMessages(json));
                     dispatch(UINotLoading());
                 }
             });
