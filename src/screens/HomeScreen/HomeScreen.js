@@ -11,12 +11,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import {
-    setMessages,
     updatePosition,
     checkSessionID,
     checkLocation,
     UILoading,
-    UINotLoading
+    listReadAll
 } from '../../redux/actions';
 
 // import MapView from 'react-native-maps';
@@ -73,6 +72,7 @@ class HomeScreen extends Component {
     }
     componentDidMount() {
         this.getCoordinates();
+        // this.props.listReadAll();
     }
     componentWillUpdate() {
         if (this.props.isLoggedIn === false) {
@@ -129,6 +129,9 @@ const mapDispatchtoProps = dispatch => {
         },
         checkSessionID: () => {
             dispatch(checkSessionID());
+        },
+        listReadAll: () => {
+            dispatch(listReadAll());
         },
         setCoordinates: coordinates => {
             dispatch(updatePosition(coordinates));

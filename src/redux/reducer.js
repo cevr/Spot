@@ -2,7 +2,8 @@ const initialState = {
     isLoggedIn: false,
     isSignedUp: false,
     isLoading: false,
-    data: []
+    messages: [],
+    allMessages: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,10 +19,15 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false
             };
-        case 'SET_DATA':
+        case 'SET_MESSAGES':
             return {
                 ...state,
-                messages: action.data
+                messages: action.messages
+            };
+        case 'SET_ALL_MESSAGES':
+            return {
+                ...state,
+                allMessages: action.messages
             };
         case 'SIGN_UP':
             return {

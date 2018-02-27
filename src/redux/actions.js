@@ -102,6 +102,13 @@ export const setMessages = messages => {
     };
 };
 
+export const setAllMessages = messages => {
+    return {
+        type: 'SET_ALL_MESSAGES',
+        messages
+    };
+};
+
 export const updatePosition = coordinates => {
     return {
         type: 'SET_COORDINATES',
@@ -157,20 +164,21 @@ export const checkLocation = coordinates => {
 
 export const listReadAll = () => {
     return dispatch => {
+        dispatch(UILoading());
         fetch('https://jodysmith.ca/listReadAll', {
             credentials: 'include',
             method: 'POST',
             body: JSON.stringify({ showme: 'lists' })
         })
-            .then(res => {
-                res.json();
-            })
+            .then(res => res.json())
             .then(json => {
                 console.log('LIST READ ALL!!!!!', json);
-                // if (json.res === false) {
-                //     dispatch(json.res);
-                // }
-                // dispatch(setError());
+                if (json.res === false) {
+                    dispatch(setError());
+                } else {
+                    dispatch(setAllMessages(json[0]));
+                    dispatch(UINotLoading());
+                }
             });
     };
 };

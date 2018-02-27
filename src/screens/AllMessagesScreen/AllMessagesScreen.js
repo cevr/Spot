@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, ToastAndroid, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { setData } from '../../redux/actions';
+// import { listReadAll } from '../../redux/actions';
 import CardList from '../HomeScreen/Components/CardList';
+import { Loading } from '../../UI';
 class AllMessagesScreen extends Component {
     constructor(props) {
         super(props);
@@ -17,10 +18,18 @@ class AllMessagesScreen extends Component {
             }
         }
     };
+
+    // componentDidMount() {}
+
     render() {
-        return (
+        return this.props.isLoading ? (
+            <Loading />
+        ) : (
             <View style={styles.CardList}>
-                {/* <CardList navigator={this.props.navigator} /> */}
+                <CardList
+                    data={this.props.allMessages}
+                    navigator={this.props.navigator}
+                />
             </View>
         );
     }
@@ -35,29 +44,10 @@ const styles = StyleSheet.create({
 
 const mapStatetoProps = state => {
     return {
-        data: state.data,
+        allMessages: state.allMessages,
         coordinates: state.coordinates,
         isLoggedIn: state.isLoggedIn,
         isLoading: state.isLoading
     };
 };
-const mapDispatchtoProps = dispatch => {
-    return {
-        checkLocation: coordinates => {
-            dispatch(checkLocation(coordinates));
-        },
-        checkSessionID: () => {
-            dispatch(checkSessionID());
-        },
-        setData: data => {
-            dispatch(setData(data));
-        },
-        setCoordinates: coordinates => {
-            dispatch(updatePosition(coordinates));
-        },
-        UILoading: () => {
-            dispatch(UILoading());
-        }
-    };
-};
-export default connect(mapStatetoProps, mapDispatchtoProps)(AllMessagesScreen);
+export default connect(mapStatetoProps)(AllMessagesScreen);

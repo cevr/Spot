@@ -13,26 +13,19 @@ export default class CardPopUp extends Component {
         this.setState({ mapReady: true });
     };
 
-    async componentDidMount() {
-        let data = await listRead(this.props.id);
-        console.log('DATA IN CARD POPUP', data);
-        if (data.title) {
-            this.setState({ data });
-        } else ToastAndroid.show(data.reason, ToastAndroid.SHORT);
-    }
-
     render() {
-        // if (this.state.data) {
+        const { info } = this.props;
         return (
             <View style={styles.container}>
                 <Text style={styles.msgBody}>
-                    {this.props.items || 'No message to display'}
+                    {info.items[0] || 'No message to display'}
                 </Text>
+                <Text>{info.read ? 'READ' : 'UNREAD'}</Text>
                 <View style={styles.mapContainer}>
                     <MapView
                         region={{
-                            latitude: this.props.lat,
-                            longitude: this.props.long,
+                            latitude: info.lat,
+                            longitude: info.long,
                             latitudeDelta: 0.0005,
                             longitudeDelta: 0.0002
                         }}
@@ -42,8 +35,8 @@ export default class CardPopUp extends Component {
                         {this.state.mapReady && (
                             <Marker
                                 coordinate={{
-                                    latitude: this.props.lat,
-                                    longitude: this.props.long
+                                    latitude: info.lat,
+                                    longitude: info.long
                                 }}
                             />
                         )}
@@ -51,10 +44,10 @@ export default class CardPopUp extends Component {
                         {this.state.mapReady && (
                             <Circle
                                 center={{
-                                    latitude: this.props.lat,
-                                    longitude: this.props.long
+                                    latitude: info.lat,
+                                    longitude: info.long
                                 }}
-                                radius={this.props.rad}
+                                radius={info.rad}
                                 strokeColor="#72a3b2"
                                 fillColor="rgba(140, 201, 219, 0.5)"
                             />

@@ -17,7 +17,7 @@ export default (Card = props => (
                 screen: 'spot.CardPopUp',
                 title: props.cardData.title,
                 passProps: {
-                    id: props.cardData._id
+                    info: props.cardData
                 },
                 navigatorStyle
             });
