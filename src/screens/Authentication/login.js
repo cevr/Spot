@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { logIn, attemptLogIn } from '../../redux/actions';
 import {
     Platform,
@@ -12,6 +13,7 @@ import {
 import startTabs from '../../Tabs/startTabs';
 import { Button, DefaultTextInput, H2 } from '../../UI';
 import { navigatorStyle } from '../../Tabs/startTabs';
+
 class Login extends Component {
     state = {};
 
@@ -34,7 +36,7 @@ class Login extends Component {
             navigatorStyle
         });
     };
-
+    componentDidMount() {}
     render() {
         return (
             <View style={styles.container}>

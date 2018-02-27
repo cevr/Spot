@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import * as screens from '../screens/index';
 import configureStore from '../redux/store';
+import startTabs from '../Tabs/startTabs';
 //this initializes the global state
 const Store = configureStore();
 
@@ -61,11 +62,4 @@ Navigation.registerComponent(
 );
 Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 
-//Start the react Navigation wrapped App
-Navigation.startSingleScreenApp({
-    screen: {
-        title: 'Spot!',
-        screen: 'spot.LoginScreen',
-        navigatorStyle: { navBarHidden: true }
-    }
-});
+startTabs();

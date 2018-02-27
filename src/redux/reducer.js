@@ -31,6 +31,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 coordinates: action.coordinates
             };
+        case 'SET_ERROR':
+            return {
+                ...state,
+                isLoggedIn: false
+            };
         default:
             return state;
     }

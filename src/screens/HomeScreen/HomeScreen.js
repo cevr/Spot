@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { Navigation } from 'react-native-navigation';
+
 import { View, ToastAndroid, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { setData, updatePosition } from '../../redux/actions';
+import {
+    setData,
+    updatePosition,
+    checkSessionID,
+    checkLocation
+} from '../../redux/actions';
 
 // import MapView from 'react-native-maps';
-import { checkLocation } from '../../Global/api';
 import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
 class HomeScreen extends Component {
@@ -28,6 +34,7 @@ class HomeScreen extends Component {
             pos => {
                 console.log('getting coords', pos);
                 this.props.setCoordinates(pos.coords);
+                this.props.checkLocation(pos.coords);
             },
             error => this.setState({ error: error.message }),
             { enableHighAccuracy: false, timeout: 10000, maximumAge: 1000 }
@@ -57,10 +64,23 @@ class HomeScreen extends Component {
     componentDidUpdate() {
         this.updateCoordinates();
     }
+    componentWillMount() {
+        this.props.checkSessionID();
+    }
     componentDidMount() {
-        this.props.setData(data);
-        this.getCoordinates();
-        this.updateCoordinates();
+        if (this.props.isLoggedIn === false) {
+            // Start the react Navigation wrapped App
+            Navigation.startSingleScreenApp({
+                screen: {
+                    title: 'Spot!',
+                    screen: 'spot.LoginScreen',
+                    navigatorStyle: { navBarHidden: true }
+                }
+            });
+        } else {
+            this.getCoordinates();
+            this.updateCoordinates();
+        }
     }
 
     render() {
@@ -90,11 +110,18 @@ const styles = StyleSheet.create({
 const mapStatetoProps = state => {
     return {
         data: state.data,
-        coordinates: state.coordinates
+        coordinates: state.coordinates,
+        isLoggedIn: state.isLoggedIn
     };
 };
 const mapDispatchtoProps = dispatch => {
     return {
+        checkLocation: coordinates => {
+            dispatch(checkLocation(coordinates));
+        },
+        checkSessionID: () => {
+            dispatch(checkSessionID());
+        },
         setData: data => {
             dispatch(setData(data));
         },
