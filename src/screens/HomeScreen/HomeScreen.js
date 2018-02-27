@@ -72,7 +72,6 @@ class HomeScreen extends Component {
     }
     componentDidMount() {
         this.getCoordinates();
-        // this.props.listReadAll();
     }
     componentWillUpdate() {
         if (this.props.isLoggedIn === false) {

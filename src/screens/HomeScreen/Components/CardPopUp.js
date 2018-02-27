@@ -9,6 +9,10 @@ export default class CardPopUp extends Component {
         this.state = { mapReady: false };
     }
 
+    componentDidMount() {
+        console.log('CARDPOPUP PROPS', this.props.info);
+    }
+
     mapReady = () => {
         this.setState({ mapReady: true });
     };

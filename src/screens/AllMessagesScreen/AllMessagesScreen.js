@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ToastAndroid, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-// import { listReadAll } from '../../redux/actions';
+import { listReadAll } from '../../redux/actions';
 import CardList from '../HomeScreen/Components/CardList';
 import { Loading } from '../../UI';
 class AllMessagesScreen extends Component {
@@ -19,7 +19,9 @@ class AllMessagesScreen extends Component {
         }
     };
 
-    // componentDidMount() {}
+    componentDidMount() {
+        this.props.listReadAll();
+    }
 
     render() {
         return this.props.isLoading ? (
@@ -50,4 +52,11 @@ const mapStatetoProps = state => {
         isLoading: state.isLoading
     };
 };
-export default connect(mapStatetoProps)(AllMessagesScreen);
+const mapDispatchtoProps = dispatch => {
+    return {
+        listReadAll: () => {
+            dispatch(listReadAll());
+        }
+    };
+};
+export default connect(mapStatetoProps, mapDispatchtoProps)(AllMessagesScreen);
