@@ -119,8 +119,7 @@ class Loading extends Component {
             <View style={styles.container}>
                 <Image
                     source={{
-                        uri:
-                            'https://media.giphy.com/media/553Ze9JCO6DLVTJA0O/giphy.gif'
+                        uri: 'https://jodysmith.ca/icon.gif'
                     }}
                     style={{ width: 80, height: 80 }}
                 />

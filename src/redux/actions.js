@@ -34,7 +34,7 @@ export const attemptSignUp = userData => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(userData),
             credentials: 'include'
         })
             .then(res => res.json())

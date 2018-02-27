@@ -8,10 +8,12 @@ import {
     Image
 } from 'react-native';
 import { navigatorStyle } from '../../../Tabs/startTabs';
+import { H3, H2 } from '../../../UI';
 
 export default (Card = props => (
     // This prop is usually called at the CardList component
     <Touchable
+        elevation={5}
         onPress={() => {
             props.navigator.showModal({
                 screen: 'spot.CardPopUp',
@@ -24,7 +26,7 @@ export default (Card = props => (
         }}
     >
         <View style={styles.Card}>
-            <Text style={{ fontSize: 15 }}>{props.cardData.title}</Text>
+            <H3 style={styles.text}>{props.cardData.title}</H3>
             <View
                 style={{
                     flexDirection: 'row',
@@ -38,10 +40,19 @@ export default (Card = props => (
 const styles = StyleSheet.create({
     Card: {
         width: '100%',
-        backgroundColor: '#eee',
+        height: 70,
+        backgroundColor: '#c43639',
         marginBottom: 8,
         padding: 7,
         flexDirection: 'column',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#aaa',
+        borderWidth: 4,
+        borderRadius: 7
+    },
+    text: {
+        color: '#F6F6F6'
     }
 });

@@ -45,8 +45,7 @@ class Login extends Component {
             <View style={styles.container}>
                 <Image
                     source={{
-                        uri:
-                            'https://media.giphy.com/media/1xpC9VmBbf0gLmZbcQ/giphy.gif'
+                        uri: 'https://jodysmith.ca/loading.gif'
                     }}
                     style={styles.image}
                     resizeMode="contain"
