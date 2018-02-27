@@ -21,7 +21,7 @@ const rootReducer = (state = initialState, action) => {
         case 'SET_DATA':
             return {
                 ...state,
-                data: action.data
+                messages: action.data
             };
         case 'SIGN_UP':
             return {

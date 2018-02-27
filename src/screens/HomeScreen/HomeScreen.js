@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import {
-    setData,
+    setMessages,
     updatePosition,
     checkSessionID,
     checkLocation,
@@ -85,7 +85,7 @@ class HomeScreen extends Component {
     render() {
         return this.props.isLoading ? (
             <Loading />
-        ) : this.props.data.length === 0 ? (
+        ) : this.props.messages.length === 0 ? (
             <ListEmpty />
         ) : (
             <View style={styles.CardList}>
@@ -96,7 +96,7 @@ class HomeScreen extends Component {
                     </Text>
                 )}
                 <CardList
-                    data={this.props.data}
+                    data={this.props.messages}
                     navigator={this.props.navigator}
                 />
             </View>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 });
 const mapStatetoProps = state => {
     return {
-        data: state.data,
+        messages: state.messages,
         coordinates: state.coordinates,
         isLoggedIn: state.isLoggedIn,
         isLoading: state.isLoading
@@ -130,17 +130,11 @@ const mapDispatchtoProps = dispatch => {
         checkSessionID: () => {
             dispatch(checkSessionID());
         },
-        setData: data => {
-            dispatch(setData(data));
-        },
         setCoordinates: coordinates => {
             dispatch(updatePosition(coordinates));
         },
         UILoading: () => {
             dispatch(UILoading());
-        },
-        UINotLoading: () => {
-            dispatch(UINotLoading());
         }
     };
 };

@@ -95,10 +95,10 @@ export const logOut = () => {
     };
 };
 
-export const setData = data => {
+export const setMessages = messages => {
     return {
-        type: 'SET_DATA',
-        data
+        type: 'SET_MESSAGES',
+        messages
     };
 };
 
@@ -148,7 +148,7 @@ export const checkLocation = coordinates => {
                 if (res.res) {
                     dispatch(listEmpty());
                 } else {
-                    dispatch(setData(res));
+                    dispatch(setMessages(res));
                     dispatch(UINotLoading());
                 }
             });
