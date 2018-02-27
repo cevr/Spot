@@ -47,7 +47,11 @@ class HomeScreen extends Component {
                 this.props.checkLocation(pos.coords);
             },
             error => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 10000, maximumAge: 1000 }
+            {
+                enableHighAccuracy: false,
+                timeout: 10000,
+                maximumAge: 1000
+            }
         );
     };
 
@@ -56,6 +60,7 @@ class HomeScreen extends Component {
             pos => {
                 console.log('MOVING!!!', pos);
                 this.props.setCoordinates(pos.coords);
+                this.props.checkLocation(pos.coords);
             },
             error => this.setState({ error: error.message }),
             {
@@ -72,13 +77,6 @@ class HomeScreen extends Component {
     }
     componentDidMount() {
         this.getCoordinates();
-    }
-    componentWillUpdate() {
-        if (this.props.isLoggedIn === false) {
-            // Start the react Navigation wrapped App
-        } else {
-            this.updateCoordinates();
-        }
     }
 
     render() {

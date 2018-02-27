@@ -44,6 +44,12 @@ Navigation.registerComponent(
     Provider
 );
 Navigation.registerComponent(
+    'spot.MapModal',
+    () => screens.MapModal,
+    Store,
+    Provider
+);
+Navigation.registerComponent(
     'spot.CardPopUp',
     () => screens.CardPopUp,
     Store,
