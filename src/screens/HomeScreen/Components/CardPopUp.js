@@ -15,6 +15,7 @@ export default class CardPopUp extends Component {
 
   async componentDidMount() {
     let data = await listRead(this.props.id);
+    console.log("DATA IN CARD POPUP", data);
     if (data.title) {
       this.setState({ data });
     } else ToastAndroid.show(data.reason, ToastAndroid.SHORT);

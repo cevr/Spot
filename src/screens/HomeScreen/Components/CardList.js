@@ -1,7 +1,6 @@
 import React from "react";
 import { FlatList, Text, StyleSheet, ToastAndroid } from "react-native";
 import Card from "./Card";
-import { connect } from "react-redux";
 //these props are called from the Home Page
 const CardList = props => (
   <FlatList
@@ -21,4 +20,4 @@ const mapStatetoProps = state => {
     data: state.data
   };
 };
-export default connect(mapStatetoProps)(CardList);
+export default CardList;
