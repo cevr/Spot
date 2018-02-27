@@ -73,7 +73,7 @@ class HomeScreen extends Component {
         this.props.checkSessionID();
     }
     componentDidMount() {
-        console.log(this.props.data);
+        console.log('HOMESCREEN COMPONENT DID MOUNT', this.props.data);
         this.getCoordinates();
     }
     componentDidUpdate() {
