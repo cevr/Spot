@@ -7,7 +7,6 @@ import {
     Text,
     Image,
     StyleSheet,
-    Button,
     ToastAndroid,
     Dimensions
 } from 'react-native';
@@ -23,17 +22,7 @@ class SettingsScreen extends Component {
         };
         this.props.logOut(data);
     };
-    componentDidUpdate() {
-        if (!this.props.isLoggedIn) {
-            Navigation.startSingleScreenApp({
-                screen: {
-                    title: 'Spot!',
-                    screen: 'spot.LoginScreen',
-                    navigatorStyle: { navBarHidden: true }
-                }
-            });
-        }
-    }
+
     render() {
         return (
             <View
@@ -61,7 +50,6 @@ class SettingsScreen extends Component {
                         Log out
                     </Icon.Button>
                 </View>
-                {}
             </View>
         );
     }

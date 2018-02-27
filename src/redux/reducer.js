@@ -1,6 +1,8 @@
 const initialState = {
     isLoggedIn: false,
-    isSignedUp: false
+    isSignedUp: false,
+    isLoading: false,
+    data: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -35,6 +37,16 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false
+            };
+        case 'UI_LOADING':
+            return {
+                ...state,
+                isLoading: true
+            };
+        case 'UI_NOT_LOADING':
+            return {
+                ...state,
+                isLoading: false
             };
         default:
             return state;

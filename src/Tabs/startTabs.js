@@ -88,7 +88,6 @@ export const navigatorStyle = {
     navBarTextColor: '#F6F6F6',
     topBarElevationShadowEnabled: true,
     screenBackgroundColor: '#F6F6F6',
-    navBarHideOnScroll: true,
     statusBarColor: '#890B0E',
     navBarButtonColor: '#F6F6F6'
 };

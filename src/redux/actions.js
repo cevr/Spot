@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
-
+import { ToastAndroid } from 'react-native';
+import { SignUpPage } from '../Global/api';
 const url = 'https://jodysmith.ca/';
 
 export const attemptLogIn = userData => {
@@ -13,13 +14,13 @@ export const attemptLogIn = userData => {
             credentials: 'include'
         })
             .then(res => res.json())
-            .then(x => {
-                console.log(x);
+            .then(json => {
+                console.log(json);
 
-                if (x.err) {
+                if (json.err) {
                 } else {
-                    console.log('');
                     dispatch(logIn(true));
+                    dispatch(storeSession(json.sessionid));
                 }
             })
             .catch(err => {
@@ -54,6 +55,7 @@ export const attemptSignUp = userData => {
 
 export const attemptLogOut = data => {
     return dispatch => {
+        ToastAndroid.show('clicked', ToastAndroid.SHORT);
         fetch('http://jodysmith.ca:5000/logout', {
             method: 'POST',
             headers: {
@@ -62,11 +64,12 @@ export const attemptLogOut = data => {
             body: JSON.stringify(data),
             credentials: 'include'
         })
-            .then(x => x.json())
+            .then(res => res.json())
             .then(json => {
+                console.log('LOGOUT!!!', json);
                 if (json.res) {
                     dispatch(logOut());
-
+                    SignUpPage();
                     console.log('in logout function');
                 } else {
                 }
@@ -81,10 +84,9 @@ export const signUp = boolean => {
     };
 };
 
-export const logIn = authenthicated => {
+export const logIn = () => {
     return {
-        type: 'LOG_IN',
-        authenthicated
+        type: 'LOG_IN'
     };
 };
 
@@ -116,31 +118,28 @@ export const storeSession = sessionID => {
 };
 export const checkSessionID = () => {
     return dispatch => {
-        fetch('https://jodysmith.ca/login', {
-            credentials: 'include',
-            method: 'POST',
-            body: JSON.stringify({})
+        fetch('https://jodysmith.ca/checkSession', {
+            credentials: 'include'
         })
-            .then(res => {
-                console.log(`!!!!!!!!!!!!!!!!!`, res.text());
-                res.json();
-            })
-
+            .then(res => res.json())
             .then(json => {
-                if (json.res) {
-                    dispatch(logIn(true));
+                console.log('CHECK SESSION ID', json);
+                if (json.res === true) {
+                    dispatch(logIn());
                 }
-            })
-            .catch(err => console.log(err));
+            });
     };
 };
 
 export const checkLocation = coordinates => {
     return dispatch => {
+        dispatch(UILoading());
+        const lat = coordinates.latitude,
+            long = coordinates.longitude;
         fetch(url + 'locCheck', {
             credentials: 'include',
             method: 'POST',
-            body: JSON.stringify(coordinates)
+            body: JSON.stringify({ lat, long })
         })
             .then(res => res.json())
             .then(res => {
@@ -148,8 +147,11 @@ export const checkLocation = coordinates => {
 
                 //if res.res exists, it is a failure
                 if (res.res) {
-                    dispatch(setData([]));
-                } else dispatch(setData(res));
+                    dispatch(setError());
+                } else {
+                    dispatch(setData(res));
+                    dispatch(UINotLoading());
+                }
             });
     };
 };
@@ -165,16 +167,34 @@ export const listReadAll = () => {
                 res.json();
             })
             .then(json => {
-                if (json.res === false) {
-                    dispatch(json.res);
-                }
-                dispatch(listReadError());
+                console.log('LIST READ ALL!!!!!', json);
+                // if (json.res === false) {
+                //     dispatch(json.res);
+                // }
+                // dispatch(setError());
             });
     };
 };
 
-export const listReadError = () => {
+export const setError = () => {
     return {
         type: 'SET_ERROR'
+    };
+};
+
+export const listEmpty = () => {
+    return {
+        type: 'LIST_EMPTY'
+    };
+};
+
+export const UILoading = () => {
+    return {
+        type: 'UI_LOADING'
+    };
+};
+export const UINotLoading = () => {
+    return {
+        type: 'UI_NOT_LOADING'
     };
 };

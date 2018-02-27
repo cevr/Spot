@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { logIn, attemptLogIn } from '../../redux/actions';
+import { logIn, attemptLogIn, checkSessionID } from '../../redux/actions';
 import {
     Platform,
     StyleSheet,
     Text,
     View,
     ToastAndroid,
-    TextInput
+    Image
 } from 'react-native';
 import startTabs from '../../Tabs/startTabs';
 import { Button, DefaultTextInput, H2 } from '../../UI';
@@ -36,11 +36,21 @@ class Login extends Component {
             navigatorStyle
         });
     };
-    componentDidMount() {}
+    componentWillMount() {
+        this.props.checkSession();
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <H2 style={{ color: '#F6F6F6' }}>Spot!</H2>
+                <Image
+                    source={{
+                        uri:
+                            'https://media.giphy.com/media/1xpC9VmBbf0gLmZbcQ/giphy.gif'
+                    }}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
                 <DefaultTextInput
                     style={styles.textInput}
                     ref={x => {
@@ -85,6 +95,11 @@ const styles = StyleSheet.create({
     textInput: {
         height: 45,
         width: 280
+    },
+    image: {
+        width: 150,
+        height: 75,
+        marginBottom: 100
     }
 });
 
@@ -92,6 +107,9 @@ const mapDispatchtoProps = dispatch => {
     return {
         logIn: userData => {
             dispatch(attemptLogIn(userData));
+        },
+        checkSession: () => {
+            dispatch(checkSessionID());
         }
     };
 };

@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { Navigation } from 'react-native-navigation';
 
-import { View, ToastAndroid, StyleSheet, Text } from 'react-native';
+import {
+    View,
+    ToastAndroid,
+    StyleSheet,
+    Text,
+    Image,
+    WebView
+} from 'react-native';
 import { connect } from 'react-redux';
 import {
     setData,
     updatePosition,
     checkSessionID,
-    checkLocation
+    checkLocation,
+    UILoading,
+    UINotLoading
 } from '../../redux/actions';
 
 // import MapView from 'react-native-maps';
 import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
+import { Loading } from '../../UI';
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +40,7 @@ class HomeScreen extends Component {
     };
 
     getCoordinates = () => {
+        this.props.UILoading();
         navigator.geolocation.getCurrentPosition(
             pos => {
                 console.log('getting coords', pos);
@@ -42,7 +53,7 @@ class HomeScreen extends Component {
     };
 
     updateCoordinates = () => {
-        let clearID = navigator.geolocation.watchPosition(
+        navigator.geolocation.watchPosition(
             pos => {
                 console.log('MOVING!!!', pos);
                 this.props.setCoordinates(pos.coords);
@@ -55,12 +66,8 @@ class HomeScreen extends Component {
                 distanceFilter: 5
             }
         );
-        return clearID;
     };
 
-    componentWillUpdate() {
-        navigator.geolocation.clearWatch(this.updateCoordinates());
-    }
     componentDidUpdate() {
         this.updateCoordinates();
     }
@@ -68,23 +75,21 @@ class HomeScreen extends Component {
         this.props.checkSessionID();
     }
     componentDidMount() {
+        console.log(this.props.data);
+        this.getCoordinates();
+    }
+    componentWillUpdate() {
         if (this.props.isLoggedIn === false) {
             // Start the react Navigation wrapped App
-            Navigation.startSingleScreenApp({
-                screen: {
-                    title: 'Spot!',
-                    screen: 'spot.LoginScreen',
-                    navigatorStyle: { navBarHidden: true }
-                }
-            });
         } else {
-            this.getCoordinates();
             this.updateCoordinates();
         }
     }
 
     render() {
-        return (
+        return this.props.isLoading ? (
+            <Loading />
+        ) : (
             <View style={styles.CardList}>
                 {this.props.coordinates && (
                     <Text>
@@ -105,13 +110,18 @@ const styles = StyleSheet.create({
     CardList: {
         flex: 1,
         margin: 40
+    },
+    image: {
+        width: 50,
+        height: 50
     }
 });
 const mapStatetoProps = state => {
     return {
         data: state.data,
         coordinates: state.coordinates,
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.isLoggedIn,
+        isLoading: state.isLoading
     };
 };
 const mapDispatchtoProps = dispatch => {
@@ -127,6 +137,12 @@ const mapDispatchtoProps = dispatch => {
         },
         setCoordinates: coordinates => {
             dispatch(updatePosition(coordinates));
+        },
+        UILoading: () => {
+            dispatch(UILoading());
+        },
+        UINotLoading: () => {
+            dispatch(UINotLoading());
         }
     };
 };

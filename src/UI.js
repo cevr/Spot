@@ -4,7 +4,8 @@ import {
     View,
     Text,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    Image
 } from 'react-native';
 
 //Look at the export to see all the available imports (at the bottom)
@@ -112,6 +113,22 @@ class H6 extends Component {
     }
 }
 
+class Loading extends Component {
+    render() {
+        return (
+            <View style={styles.container}>
+                <Image
+                    source={{
+                        uri:
+                            'https://media.giphy.com/media/553Ze9JCO6DLVTJA0O/giphy.gif'
+                    }}
+                    style={{ width: 80, height: 80 }}
+                />
+            </View>
+        );
+    }
+}
+
 const styles = StyleSheet.create({
     input: {
         width: '100%',
@@ -162,7 +179,23 @@ const styles = StyleSheet.create({
     h6: {
         fontSize: 11,
         fontWeight: 'bold'
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
-export { Button, DefaultTextInput, DefaultText, H1, H2, H3, H4, H5, H6 };
+export {
+    Button,
+    DefaultTextInput,
+    DefaultText,
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    H6,
+    Loading
+};

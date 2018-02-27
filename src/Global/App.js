@@ -1,4 +1,5 @@
 import { Navigation } from 'react-native-navigation';
+import { AsyncStorage } from 'react-native';
 import { Provider } from 'react-redux';
 /*                  Relative imports                       */
 
@@ -62,4 +63,14 @@ Navigation.registerComponent(
 );
 Navigation.registerComponent('spot.Test', () => screens.Test, Store, Provider);
 
-startTabs();
+// Promise.resolve(AsyncStorage.getItem('spot:sessionID')).then(res => {
+//     console.log(res).catch(err => console.log(err));
+// });
+// startTabs();
+Navigation.startSingleScreenApp({
+    screen: {
+        title: 'Spot!',
+        screen: 'spot.LoginScreen',
+        navigatorStyle: { navBarHidden: true }
+    }
+});
