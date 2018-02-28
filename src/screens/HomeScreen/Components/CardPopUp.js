@@ -16,6 +16,23 @@ class CardPopUp extends Component {
         this.setState({ mapReady: true });
     };
 
+    componentDidMount() {
+        console.log('PROPS FOR CARD POP UP', this.props.coordinates);
+    }
+
+    componentWillUnmount() {
+        if (!this.props.info.read) {
+            this.props.listUpdate(
+                {
+                    listid: this.props.info._id,
+                    reqKey: 'read',
+                    reqValue: true
+                },
+                this.props.coordinates
+            );
+        }
+    }
+
     render() {
         const { info, listUpdate } = this.props;
         return (
@@ -26,19 +43,6 @@ class CardPopUp extends Component {
                     </Text>
                 </View>
                 <View>
-                    {/* {info.read || (
-                        <Button
-                            title="Mark as read"
-                            onPress={() =>
-                                listUpdate({
-                                    listid: info._id,
-                                    reqKey: 'read',
-                                    reqValue: true
-                                })
-                            }
-                            color="#890B0E"
-                        />
-                    )} */}
                     <Text>{info.read && 'READ'}</Text>
                 </View>
                 <View style={styles.mapContainer}>
@@ -114,6 +118,12 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStatetoProps = state => {
+    return {
+        coordinates: Object.assign({}, state.coordinates)
+    };
+};
+
 const mapDispatchtoProps = dispatch => {
     return {
         listUpdate: payload => {
@@ -122,4 +132,4 @@ const mapDispatchtoProps = dispatch => {
     };
 };
 
-export default connect(null, mapDispatchtoProps)(CardPopUp);
+export default connect(mapStatetoProps, mapDispatchtoProps)(CardPopUp);
