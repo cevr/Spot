@@ -37,6 +37,13 @@ class HomeScreen extends Component {
                 });
             }
         }
+        if (event.id === 'didAppear') {
+            if (this.props.coordinates) {
+                this.props.checkLocation(
+                    Object.assign({}, this.props.coordinates)
+                );
+            }
+        }
     };
 
     getCoordinates = () => {
@@ -73,9 +80,6 @@ class HomeScreen extends Component {
         );
     };
 
-    componentDidUpdate() {
-        this.updateCoordinates();
-    }
     componentDidMount() {
         this.getCoordinates();
     }

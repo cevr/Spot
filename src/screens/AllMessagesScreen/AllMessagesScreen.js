@@ -34,8 +34,6 @@ class AllMessagesScreen extends Component {
         this.props.listReadAll();
     }
 
-    componentDidUpdate() {}
-
     mapReady = () => {
         this.setState({ mapReady: true });
     };

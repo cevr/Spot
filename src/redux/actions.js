@@ -138,6 +138,7 @@ export const checkSessionID = () => {
 };
 
 export const checkLocation = coordinates => {
+    console.log('checking location', coordinates);
     return dispatch => {
         dispatch(UILoading());
         const lat = coordinates.latitude,
@@ -183,7 +184,7 @@ export const listReadAll = () => {
     };
 };
 
-export const listUpdate = reqBody => {
+export const listUpdate = (reqBody, coordinates) => {
     return dispatch => {
         fetch('http://jodysmith.ca:5000/listUpdate', {
             credentials: 'include',
@@ -194,7 +195,9 @@ export const listUpdate = reqBody => {
             .then(json => {
                 console.log('LISTUPDATE JSON', json);
                 if (json.err) dispatch(setError());
-                if (json.res) dispatch({});
+                if (json.res) {
+                    dispatch({ type: 'UPDATE' });
+                }
             });
     };
 };
