@@ -51,8 +51,8 @@ const startTabs = () => {
                 },
                 {
                     screen: 'spot.AllMessagesScreen',
-                    label: 'All Messages',
-                    title: 'All Messages',
+                    label: 'Map View',
+                    title: 'Map View',
                     icon: sources[1],
                     navigatorStyle,
                     navigatorButtons: {
