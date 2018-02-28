@@ -12,7 +12,7 @@ import MapView, { Marker, Circle } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { listReadAll } from '../../redux/actions';
 import CardList from '../HomeScreen/Components/CardList';
-import { Loading, Button } from '../../UI';
+import { Loading, Button2 } from '../../UI';
 import { navigatorStyle } from '../../Tabs/startTabs';
 class AllMessagesScreen extends Component {
     constructor(props) {
@@ -57,6 +57,7 @@ class AllMessagesScreen extends Component {
                         }}
                         style={styles.map}
                         onLayout={this.mapReady}
+                        ref={ref => (this.map = ref)}
                     >
                         {this.state.mapReady &&
                             this.props.allMessages.map(msg => {
@@ -97,7 +98,8 @@ class AllMessagesScreen extends Component {
                     <View style={styles.overlay}>
                         <ScrollView
                             style={{
-                                flex: 1
+                                flex: 1,
+                                paddingLeft: 7
                             }}
                             contentContainerStyle={styles.ScrollView}
                             horizontal={true}
@@ -105,10 +107,13 @@ class AllMessagesScreen extends Component {
                         >
                             {this.props.allMessages.map((msg, index) => {
                                 return (
-                                    <Button
+                                    <Button2
+                                        readStatus={msg.read}
                                         style={{
-                                            width: 100,
-                                            height: 50
+                                            width: 125,
+                                            height: 50,
+                                            marginRight: 5,
+                                            marginBottom: 0
                                         }}
                                         key={`${index}`}
                                         title={msg.title}

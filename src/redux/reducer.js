@@ -16,8 +16,7 @@ const rootReducer = (state = initialState, action) => {
 
         case 'LOG_OUT':
             return {
-                ...state,
-                isLoggedIn: false
+                ...initialState
             };
         case 'SET_MESSAGES':
             return {

@@ -55,7 +55,10 @@ export const SignUpPage = () => {
         screen: {
             title: 'Spot!',
             screen: 'spot.LoginScreen',
-            navigatorStyle: { navBarHidden: true }
+            navigatorStyle: { navBarHidden: true },
+            appStyle: {
+                orientation: 'portrait'
+            }
         }
     });
 };

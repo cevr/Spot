@@ -16,13 +16,11 @@ export const attemptLogIn = userData => {
             .then(res => res.json())
             .then(json => {
                 if (json.err) {
+                    console.log(json.err);
                 } else {
                     dispatch(logIn());
                     dispatch(storeSession(json));
                 }
-            })
-            .catch(err => {
-                ToastAndroid.show(err, ToastAndroid.SHORT);
             });
     };
 };
