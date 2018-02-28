@@ -78,6 +78,7 @@ class AllMessagesScreen extends Component {
                                     <Circle
                                         center={{
                                             latitude: msg.lat,
+
                                             longitude: msg.long
                                         }}
                                         radius={msg.rad}
