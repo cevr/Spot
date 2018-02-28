@@ -57,6 +57,7 @@ export default class AddMessagesScreen extends Component {
             long: this.state.region.coordinates.longitude,
             rad: this.state.region.radius
         });
+        ToastAndroid.show('Message Sent!', ToastAndroid.SHORT);
         this.title.clear();
         this.msg.clear();
         this.setState({
