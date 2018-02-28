@@ -47,6 +47,7 @@ class HomeScreen extends Component {
     };
 
     getCoordinates = () => {
+        console.log('IS THIS WORKING?');
         this.props.UILoading();
         navigator.geolocation.getCurrentPosition(
             pos => {

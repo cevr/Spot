@@ -19,17 +19,7 @@ class AllMessagesScreen extends Component {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
         this.state = {
-            mapReady: false,
-            location: {
-                ...this.props.coordinates,
-
-                latitudeDelta: 0.0022,
-
-                longitudeDelta:
-                    Dimensions.get('window').width /
-                    Dimensions.get('window').height *
-                    0.0022
-            }
+            mapReady: false
         };
     }
     onNavigatorEvent = event => {
@@ -37,6 +27,23 @@ class AllMessagesScreen extends Component {
             if (event.id === 'settingsToggle') {
                 this.props.navigator.toggleDrawer({
                     side: 'right'
+                });
+            }
+        }
+        if (event.id === 'willAppear') {
+            if (this.props.coordinates) {
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        location: {
+                            ...this.props.coordinates,
+                            latitudeDelta: 0.0022,
+                            longitudeDelta:
+                                Dimensions.get('window').width /
+                                Dimensions.get('window').height *
+                                0.0022
+                        }
+                    };
                 });
             }
         }
@@ -54,14 +61,19 @@ class AllMessagesScreen extends Component {
         this.map.animateToRegion({
             ...this.state.location,
             latitude,
-            longitude
+            longitude,
+            latitudeDelta: 0.0022,
+            longitudeDelta:
+                Dimensions.get('window').width /
+                Dimensions.get('window').height *
+                0.0022
         });
         this.setState(prevState => {
             return {
                 location: {
                     ...prevState.location,
-                    longitude: coords.longitude,
-                    latitude: coords.latitude
+                    longitude,
+                    latitude
                 }
             };
         });
@@ -72,17 +84,7 @@ class AllMessagesScreen extends Component {
             return (
                 <View style={styles.mapContainer}>
                     <MapView
-                        initialRegion={{
-                            ...this.props.coordinates,
-
-                            latitudeDelta: 0.0022,
-
-                            longitudeDelta:
-                                Dimensions.get('window').width /
-                                Dimensions.get('window').height *
-                                0.0022
-                        }}
-                        region={this.state.location}
+                        initialRegion={this.state.location}
                         style={styles.map}
                         onLayout={this.mapReady}
                         ref={ref => (this.map = ref)}
@@ -117,9 +119,17 @@ class AllMessagesScreen extends Component {
                         {this.state.mapReady && (
                             <Circle
                                 center={coordinates}
-                                radius={10}
+                                radius={4}
                                 strokeColor="rgba(137,11,14,0.8)"
                                 fillColor="rgba(137,11,14,0.2)"
+                            />
+                        )}
+                        {this.state.mapReady && (
+                            <Circle
+                                center={coordinates}
+                                radius={3}
+                                strokeColor="rgba(137,11,14,0.8)"
+                                fillColor="rgba(137,11,14,0.5)"
                             />
                         )}
                     </MapView>
