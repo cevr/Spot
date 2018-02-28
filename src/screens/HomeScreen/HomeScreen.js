@@ -22,6 +22,7 @@ import {
 import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
 import { Loading, ListEmpty } from '../../UI';
+import { SignUpPage } from '../../Global/api';
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
