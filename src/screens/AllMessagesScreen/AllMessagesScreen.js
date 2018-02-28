@@ -28,6 +28,11 @@ class AllMessagesScreen extends Component {
                 });
             }
         }
+        if (event.id === 'didAppear') {
+            if (this.props.coordinates) {
+                this.props.listReadAll();
+            }
+        }
     };
 
     componentDidMount() {
