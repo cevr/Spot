@@ -18,7 +18,9 @@ class AllMessagesScreen extends Component {
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-        this.state = { mapReady: false };
+        this.state = {
+            mapReady: false
+        };
     }
     onNavigatorEvent = event => {
         if (event.type === 'NavBarButtonPress') {
@@ -28,9 +30,21 @@ class AllMessagesScreen extends Component {
                 });
             }
         }
-        if (event.id === 'didAppear') {
+        if (event.id === 'willAppear') {
             if (this.props.coordinates) {
-                this.props.listReadAll();
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        location: {
+                            ...this.props.coordinates,
+                            latitudeDelta: 0.0022,
+                            longitudeDelta:
+                                Dimensions.get('window').width /
+                                Dimensions.get('window').height *
+                                0.0022
+                        }
+                    };
+                });
             }
         }
     };
@@ -43,21 +57,34 @@ class AllMessagesScreen extends Component {
         this.setState({ mapReady: true });
     };
 
+    onMapPressHandler = (latitude, longitude) => {
+        this.map.animateToRegion({
+            ...this.state.location,
+            latitude,
+            longitude,
+            latitudeDelta: 0.0022,
+            longitudeDelta:
+                Dimensions.get('window').width /
+                Dimensions.get('window').height *
+                0.0022
+        });
+        this.setState(prevState => {
+            return {
+                location: {
+                    ...prevState.location,
+                    longitude,
+                    latitude
+                }
+            };
+        });
+    };
     render() {
         const { coordinates } = this.props;
         if (coordinates) {
             return (
                 <View style={styles.mapContainer}>
                     <MapView
-                        region={{
-                            ...coordinates,
-                            latitudeDelta: 0.0022,
-
-                            longitudeDelta:
-                                Dimensions.get('window').width /
-                                Dimensions.get('window').height *
-                                0.0022
-                        }}
+                        initialRegion={this.state.location}
                         style={styles.map}
                         onLayout={this.mapReady}
                         ref={ref => (this.map = ref)}
@@ -92,9 +119,17 @@ class AllMessagesScreen extends Component {
                         {this.state.mapReady && (
                             <Circle
                                 center={coordinates}
-                                radius={10}
+                                radius={4}
                                 strokeColor="rgba(137,11,14,0.8)"
                                 fillColor="rgba(137,11,14,0.2)"
+                            />
+                        )}
+                        {this.state.mapReady && (
+                            <Circle
+                                center={coordinates}
+                                radius={3}
+                                strokeColor="rgba(137,11,14,0.8)"
+                                fillColor="rgba(137,11,14,0.5)"
                             />
                         )}
                     </MapView>
@@ -118,6 +153,12 @@ class AllMessagesScreen extends Component {
                                             marginRight: 5,
                                             marginBottom: 0
                                         }}
+                                        onPress={() =>
+                                            this.onMapPressHandler(
+                                                msg.lat,
+                                                msg.long
+                                            )
+                                        }
                                         key={`${index}`}
                                         title={msg.title}
                                     />
