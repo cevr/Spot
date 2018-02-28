@@ -19,6 +19,7 @@ class AllMessagesScreen extends Component {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
         this.state = {
+            marker: {},
             mapReady: false
         };
     }
@@ -58,7 +59,18 @@ class AllMessagesScreen extends Component {
         this.setState({ mapReady: true });
     };
 
-    onMapPressHandler = (latitude, longitude) => {
+    onMarkerPress = item => {
+        this.props.navigator.showModal({
+            screen: 'spot.CardPopUp',
+            title: item.title,
+            passProps: {
+                info: Object.assign({}, item)
+            },
+            navigatorStyle
+        });
+    };
+
+    onMapPressHandler = (latitude, longitude, markerID) => {
         this.map.animateToRegion({
             ...this.state.location,
             latitude,
@@ -69,6 +81,7 @@ class AllMessagesScreen extends Component {
                 Dimensions.get('window').height *
                 0.0022
         });
+        this.state.marker[markerID].showCallout();
         this.setState(prevState => {
             return {
                 location: {
@@ -100,6 +113,13 @@ class AllMessagesScreen extends Component {
                                         }}
                                         title={msg.title}
                                         description={msg.items[0]}
+                                        key={msg._id}
+                                        onCalloutPress={() => {
+                                            this.onMarkerPress(msg);
+                                        }}
+                                        ref={ref =>
+                                            (this.state.marker[msg._id] = ref)
+                                        }
                                     />
                                 );
                             })}
@@ -114,6 +134,7 @@ class AllMessagesScreen extends Component {
                                         radius={msg.rad}
                                         strokeColor="#72a3b2"
                                         fillColor="rgba(140, 201, 219, 0.5)"
+                                        key={msg._id}
                                     />
                                 );
                             })}
@@ -157,7 +178,8 @@ class AllMessagesScreen extends Component {
                                         onPress={() =>
                                             this.onMapPressHandler(
                                                 msg.lat,
-                                                msg.long
+                                                msg.long,
+                                                msg._id
                                             )
                                         }
                                         key={`${index}`}

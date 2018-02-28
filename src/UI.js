@@ -67,10 +67,14 @@ class Button2 extends Component {
                     ]}
                 >
                     <Text
-                        style={{
-                            color: readStatus ? '' : '#ce797b',
-                            fontSize: 17
-                        }}
+                        style={
+                            readStatus
+                                ? { fontSize: 17 }
+                                : {
+                                      color: '#ce797b',
+                                      fontSize: 17
+                                  }
+                        }
                     >
                         {this.props.title}
                     </Text>

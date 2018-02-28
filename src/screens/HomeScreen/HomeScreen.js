@@ -88,7 +88,7 @@ class HomeScreen extends Component {
     render() {
         return this.props.isLoading ? (
             <Loading />
-        ) : this.props.messages.length === 0 ? (
+        ) : this.props.messages.length === 0 && this.props.isLoading ? (
             <ListEmpty />
         ) : (
             <View style={styles.CardList}>

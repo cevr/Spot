@@ -9,7 +9,11 @@ const CardList = props => (
         data={props.data}
         //this renders each card the same way a map function would
         renderItem={card => (
-            <Card cardData={card.item} navigator={props.navigator} />
+            <Card
+                key={card.item._id}
+                cardData={card.item}
+                navigator={props.navigator}
+            />
         )}
     />
 );
