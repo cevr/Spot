@@ -28,7 +28,6 @@ class Login extends Component {
         if (this.props.isLoggedIn) startTabs();
     }
     showSignup = () => {
-        ToastAndroid.show('signup', ToastAndroid.SHORT);
         this.props.navigator.showModal({
             screen: 'spot.SignupScreen',
             title: 'Sign Up',

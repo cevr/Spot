@@ -15,8 +15,6 @@ export const attemptLogIn = userData => {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json);
-
                 if (json.err) {
                 } else {
                     dispatch(logIn());
@@ -24,7 +22,7 @@ export const attemptLogIn = userData => {
                 }
             })
             .catch(err => {
-                console.log(err);
+                ToastAndroid.show(err, ToastAndroid.SHORT);
             });
     };
 };
@@ -44,18 +42,17 @@ export const attemptSignUp = userData => {
                 if (json.res) {
                     dispatch(signUp(json.res));
                 } else {
-                    ToastAndroid.show('sign up failed', ToastAndroid.SHORT);
+                    ToastAndroid.show('Sign-up failed', ToastAndroid.SHORT);
                 }
             })
             .catch(err => {
-                console.log(err);
+                ToastAndroid.show(err, ToastAndroid.SHORT);
             });
     };
 };
 
 export const attemptLogOut = data => {
     return dispatch => {
-        ToastAndroid.show('clicked', ToastAndroid.SHORT);
         fetch('https://jodysmith.ca/logout', {
             method: 'POST',
             headers: {
@@ -177,8 +174,8 @@ export const listReadAll = () => {
         })
             .then(res => res.json())
             .then(json => {
-                console.log('LIST READ ALL!!!!!', json);
                 if (json.res === false) {
+                    //must write conditional like this because backend only sends json.res when it encounters an error
                     dispatch(setError());
                 } else {
                     dispatch(setAllMessages(json));
@@ -189,7 +186,6 @@ export const listReadAll = () => {
 };
 
 export const listUpdate = reqBody => {
-    console.log('LISTUPDATE PAYLOAD', reqBody);
     return dispatch => {
         fetch('http://jodysmith.ca:5000/listUpdate', {
             credentials: 'include',

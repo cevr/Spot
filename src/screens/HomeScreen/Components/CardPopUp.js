@@ -26,19 +26,19 @@ class CardPopUp extends Component {
                     </Text>
                 </View>
                 <View>
-                    {info.read || (
+                    {/* {info.read || (
                         <Button
                             title="Mark as read"
-                            // onPress={() =>
-                            //     listUpdate({
-                            //         listid: info._id,
-                            //         reqKey: 'read',
-                            //         reqValue: true
-                            //     })
-                            // }
+                            onPress={() =>
+                                listUpdate({
+                                    listid: info._id,
+                                    reqKey: 'read',
+                                    reqValue: true
+                                })
+                            }
                             color="#890B0E"
                         />
-                    )}
+                    )} */}
                     <Text>{info.read && 'READ'}</Text>
                 </View>
                 <View style={styles.mapContainer}>
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     },
     msgContainer: {
         height: 200,
-        width: '100%',
-        backgroundColor: 'red'
+        width: '80%',
+        backgroundColor: '#F6F6F6'
     },
     msgBody: {
         fontSize: 18,
