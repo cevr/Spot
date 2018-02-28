@@ -18,7 +18,19 @@ class AllMessagesScreen extends Component {
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-        this.state = { mapReady: false };
+        this.state = {
+            mapReady: false,
+            location: {
+                ...this.props.coordinates,
+
+                latitudeDelta: 0.0022,
+
+                longitudeDelta:
+                    Dimensions.get('window').width /
+                    Dimensions.get('window').height *
+                    0.0022
+            }
+        };
     }
     onNavigatorEvent = event => {
         if (event.type === 'NavBarButtonPress') {
@@ -38,14 +50,31 @@ class AllMessagesScreen extends Component {
         this.setState({ mapReady: true });
     };
 
+    onMapPressHandler = (latitude, longitude) => {
+        this.map.animateToRegion({
+            ...this.state.location,
+            latitude,
+            longitude
+        });
+        this.setState(prevState => {
+            return {
+                location: {
+                    ...prevState.location,
+                    longitude: coords.longitude,
+                    latitude: coords.latitude
+                }
+            };
+        });
+    };
     render() {
         const { coordinates } = this.props;
         if (coordinates) {
             return (
                 <View style={styles.mapContainer}>
                     <MapView
-                        region={{
-                            ...coordinates,
+                        initialRegion={{
+                            ...this.props.coordinates,
+
                             latitudeDelta: 0.0022,
 
                             longitudeDelta:
@@ -53,6 +82,7 @@ class AllMessagesScreen extends Component {
                                 Dimensions.get('window').height *
                                 0.0022
                         }}
+                        region={this.state.location}
                         style={styles.map}
                         onLayout={this.mapReady}
                         ref={ref => (this.map = ref)}
@@ -76,7 +106,6 @@ class AllMessagesScreen extends Component {
                                     <Circle
                                         center={{
                                             latitude: msg.lat,
-
                                             longitude: msg.long
                                         }}
                                         radius={msg.rad}
@@ -114,6 +143,12 @@ class AllMessagesScreen extends Component {
                                             marginRight: 5,
                                             marginBottom: 0
                                         }}
+                                        onPress={() =>
+                                            this.onMapPressHandler(
+                                                msg.lat,
+                                                msg.long
+                                            )
+                                        }
                                         key={`${index}`}
                                         title={msg.title}
                                     />
