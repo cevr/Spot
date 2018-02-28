@@ -9,22 +9,20 @@ class MapModal extends Component {
         super();
         this.state = { mapReady: false };
     }
-    componentDidMount() {
-        console.log('MAPMODAL PROPS', this.props);
-    }
 
     mapReady = () => {
         this.setState({ mapReady: true });
     };
 
     render() {
+        const { coordinates } = this.props;
         return (
             <View style={styles.mapContainer}>
                 <MapView
                     region={{
-                        ...this.props.coordinates,
-                        latitudeDelta: 0.0099,
-                        longitudeDelta: 0.0099
+                        ...coordinates,
+                        latitudeDelta: 0.005,
+                        longitudeDelta: 0.003
                     }}
                     style={styles.map}
                     onLayout={this.mapReady}
@@ -37,6 +35,8 @@ class MapModal extends Component {
                                         latitude: msg.lat,
                                         longitude: msg.long
                                     }}
+                                    title={msg.title}
+                                    description={msg.items[0]}
                                 />
                             );
                         })}
@@ -54,6 +54,14 @@ class MapModal extends Component {
                                 />
                             );
                         })}
+                    {this.state.mapReady && (
+                        <Circle
+                            center={coordinates}
+                            radius={3}
+                            strokeColor="#890B0E"
+                            fillColor="#890B0E"
+                        />
+                    )}
                 </MapView>
             </View>
         );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, ToastAndroid, StyleSheet } from 'react-native';
+import { Button, Text, View, ToastAndroid, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { listReadAll } from '../../redux/actions';
 import CardList from '../HomeScreen/Components/CardList';
-import { Loading, Button } from '../../UI';
+import { Loading } from '../../UI';
 import { navigatorStyle } from '../../Tabs/startTabs';
 class AllMessagesScreen extends Component {
     constructor(props) {
@@ -41,7 +41,13 @@ class AllMessagesScreen extends Component {
                     data={this.props.allMessages}
                     navigator={this.props.navigator}
                 />
-                <View>
+                <View
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 15
+                    }}
+                >
                     <Button title="Map View" onPress={this.enterMap} />
                 </View>
             </View>
@@ -52,7 +58,7 @@ class AllMessagesScreen extends Component {
 const styles = StyleSheet.create({
     CardList: {
         flex: 1,
-        margin: 40
+        margin: 30
     }
 });
 

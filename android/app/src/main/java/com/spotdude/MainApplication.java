@@ -3,6 +3,7 @@ package com.spotdude;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.psykar.cookiemanager.CookieManagerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -32,6 +33,7 @@ import java.util.List;
              // eg. new VectorIconsPackage()
                 new MapsPackage(),
                 new MainReactPackage(),
+                new CookieManagerPackage(),
                 new VectorIconsPackage()
          );
      }

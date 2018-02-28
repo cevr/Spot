@@ -20,30 +20,34 @@ class CardPopUp extends Component {
         const { info, listUpdate } = this.props;
         return (
             <View style={styles.container}>
-                <Text style={styles.msgBody}>
-                    {info.items[0] || 'No message to display'}
-                </Text>
+                <View style={styles.msgContainer}>
+                    <Text style={styles.msgBody}>
+                        {info.items[0] || 'No message to display'}
+                    </Text>
+                </View>
                 <View>
-                    <Button
-                        title="Mark as read"
-                        // onPress={() =>
-                        //     listUpdate({
-                        //         listid: info._id,
-                        //         reqKey: 'read',
-                        //         reqValue: true
-                        //     })
-                        // }
-                        color="#890B0E"
-                    />
-                    <Text>{info.read ? 'READ' : 'UNREAD'}</Text>
+                    {info.read || (
+                        <Button
+                            title="Mark as read"
+                            // onPress={() =>
+                            //     listUpdate({
+                            //         listid: info._id,
+                            //         reqKey: 'read',
+                            //         reqValue: true
+                            //     })
+                            // }
+                            color="#890B0E"
+                        />
+                    )}
+                    <Text>{info.read && 'READ'}</Text>
                 </View>
                 <View style={styles.mapContainer}>
                     <MapView
                         region={{
                             latitude: info.lat,
                             longitude: info.long,
-                            latitudeDelta: 0.0005,
-                            longitudeDelta: 0.0002
+                            latitudeDelta: 0.005,
+                            longitudeDelta: 0.002
                         }}
                         style={styles.map}
                         onLayout={this.mapReady}
@@ -81,6 +85,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: '#F6F6F6'
+    },
+    msgContainer: {
+        height: 200,
+        width: '100%',
+        backgroundColor: 'red'
     },
     msgBody: {
         fontSize: 18,

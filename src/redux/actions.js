@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { SignUpPage } from '../Global/api';
+import CookieManager from 'react-native-cookies';
 
 export const attemptLogIn = userData => {
     return dispatch => {
@@ -67,8 +68,12 @@ export const attemptLogOut = data => {
             .then(json => {
                 console.log('LOGOUT!!!', json);
                 if (json.res) {
-                    dispatch(logOut());
-                    SignUpPage();
+                    CookieManager.clearAll().then(res => {
+                        console.log('CookieManager.clearAll =>', res);
+                        dispatch(logOut());
+                        SignUpPage();
+                    });
+
                     console.log('in logout function');
                 } else {
                 }
