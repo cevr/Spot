@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, ToastAndroid, StyleSheet, Dimensions } from 'react-native';
+import {
+    Text,
+    View,
+    ToastAndroid,
+    StyleSheet,
+    Dimensions,
+    ScrollView,
+    FlatList
+} from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { listReadAll } from '../../redux/actions';
 import CardList from '../HomeScreen/Components/CardList';
-import { Loading } from '../../UI';
+import { Loading, Button } from '../../UI';
 import { navigatorStyle } from '../../Tabs/startTabs';
 class AllMessagesScreen extends Component {
     constructor(props) {
@@ -40,11 +48,12 @@ class AllMessagesScreen extends Component {
                     <MapView
                         region={{
                             ...coordinates,
-                            latitudeDelta:
+                            latitudeDelta: 0.0022,
+
+                            longitudeDelta:
                                 Dimensions.get('window').width /
                                 Dimensions.get('window').height *
-                                0.003,
-                            longitudeDelta: 0.003
+                                0.0022
                         }}
                         style={styles.map}
                         onLayout={this.mapReady}
@@ -79,12 +88,35 @@ class AllMessagesScreen extends Component {
                         {this.state.mapReady && (
                             <Circle
                                 center={coordinates}
-                                radius={3}
-                                strokeColor="#890B0E"
-                                fillColor="#890B0E"
+                                radius={10}
+                                strokeColor="rgba(137,11,14,0.8)"
+                                fillColor="rgba(137,11,14,0.2)"
                             />
                         )}
                     </MapView>
+                    <View style={styles.overlay}>
+                        <ScrollView
+                            style={{
+                                flex: 1
+                            }}
+                            contentContainerStyle={styles.ScrollView}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            {this.props.allMessages.map((msg, index) => {
+                                return (
+                                    <Button
+                                        style={{
+                                            width: 100,
+                                            height: 50
+                                        }}
+                                        key={`${index}`}
+                                        title={msg.title}
+                                    />
+                                );
+                            })}
+                        </ScrollView>
+                    </View>
                 </View>
             );
         } else return <Loading />;
@@ -93,13 +125,9 @@ class AllMessagesScreen extends Component {
 
 const styles = StyleSheet.create({
     mapContainer: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        flex: 1,
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'flex-start'
     },
     map: {
         position: 'absolute',
@@ -107,6 +135,16 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0
+    },
+    overlay: {
+        backgroundColor: 'rgba(246,246,246,0.5)',
+        height: 70,
+        width: '100%'
+    },
+    ScrollView: {
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

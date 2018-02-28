@@ -8,7 +8,7 @@ const startTabs = () => {
     //Icon.getImageSource is async, therefore you need to resolve it through a promise or an async/await (couldn't get it working with async)
     Promise.all([
         Icon.getImageSource('home-outline', 40),
-        Icon.getImageSource('crosshairs-gps', 40),
+        Icon.getImageSource('map-marker', 40),
         Icon.getImageSource('plus-circle-outline', 40),
         Icon.getImageSource('menu', 30)
     ]).then(sources =>

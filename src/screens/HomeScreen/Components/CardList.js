@@ -4,6 +4,7 @@ import Card from './Card';
 //these props are called from the Home Page
 const CardList = props => (
     <FlatList
+        showsHorizontalScrollIndicator={false}
         //this receives the array of information needed to render the card list
         data={props.data}
         //this renders each card the same way a map function would
