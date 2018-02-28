@@ -7,6 +7,7 @@ import {
     StyleSheet,
     Image
 } from 'react-native';
+import { stylesCard } from './screens/HomeScreen/Components/Card';
 
 //Look at the export to see all the available imports (at the bottom)
 class DefaultTextInput extends Component {
@@ -37,7 +38,40 @@ class Button extends Component {
         return (
             <Touchable onPress={this.props.onPress}>
                 <View elevation={5} style={[styles.button, this.props.style]}>
-                    <Text style={{ color: '#890B0E', fontSize: 17 }}>
+                    <Text
+                        style={{
+                            color: stylesCard.CardRead.color,
+                            fontSize: 17
+                        }}
+                    >
+                        {this.props.title}
+                    </Text>
+                </View>
+            </Touchable>
+        );
+    }
+}
+class Button2 extends Component {
+    render() {
+        const { readStatus } = this.props;
+
+        return (
+            <Touchable onPress={this.props.onPress}>
+                <View
+                    elevation={5}
+                    style={[
+                        readStatus
+                            ? stylesCard.CardRead
+                            : stylesCard.CardUnread,
+                        this.props.style
+                    ]}
+                >
+                    <Text
+                        style={{
+                            color: readStatus ? '' : '#ce797b',
+                            fontSize: 17
+                        }}
+                    >
                         {this.props.title}
                     </Text>
                 </View>
@@ -161,6 +195,15 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         width: '50%'
     },
+    button2: {
+        alignItems: 'center',
+        marginTop: 7,
+        marginBottom: 7,
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#890B0E',
+        borderWidth: 2
+    },
     text: {
         fontFamily: 'Roboto',
         backgroundColor: 'transparent'
@@ -198,6 +241,7 @@ const styles = StyleSheet.create({
 
 export {
     Button,
+    Button2,
     DefaultTextInput,
     DefaultText,
     H1,

@@ -26,11 +26,17 @@ export default (Card = props => (
     >
         <View
             elevation={5}
-            style={props.cardData.read ? styles.CardRead : styles.CardUnread}
+            style={
+                props.cardData.read
+                    ? stylesCard.CardRead
+                    : stylesCard.CardUnread
+            }
         >
             <H3
                 style={
-                    props.cardData.read ? styles.textRead : styles.textUnread
+                    props.cardData.read
+                        ? stylesCard.textRead
+                        : stylesCard.textUnread
                 }
             >
                 {props.cardData.title}
@@ -45,7 +51,7 @@ export default (Card = props => (
     </Touchable>
 ));
 
-const styles = StyleSheet.create({
+export const stylesCard = StyleSheet.create({
     CardRead: {
         width: '100%',
         height: 70,
