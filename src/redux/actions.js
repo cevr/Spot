@@ -152,8 +152,9 @@ export const checkLocation = coordinates => {
             .then(res => res.json())
             .then(json => {
                 //if res.res exists, it is a failure
-                if (json.res) {
+                if (json.res === false) {
                     dispatch(listEmpty());
+                    dispatch(UINotLoading());
                 } else {
                     dispatch(
                         setMessages(
@@ -183,6 +184,7 @@ export const listReadAll = () => {
                 if (json.res === false) {
                     //must write conditional like this because backend only sends json.res when it encounters an error
                     dispatch(setError());
+                    dispatch(UINotLoading());
                 } else {
                     dispatch(
                         setAllMessages(

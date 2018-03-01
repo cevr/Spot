@@ -85,6 +85,7 @@ class HomeScreen extends Component {
     }
 
     componentDidUpdate() {
+        console.log('IS LOADING', this.props.isLoading);
         if (this.props.isLoading === false) {
             if (this.props.messages.length > 0) {
                 const unreadCount = this.props.messages.filter(msg => {
