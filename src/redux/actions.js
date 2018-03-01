@@ -110,6 +110,7 @@ export const setAllMessages = messages => {
 };
 
 export const updatePosition = coordinates => {
+    console.log('UPDATE POSITION SETTING COORDINATES', coordinates);
     return {
         type: 'SET_COORDINATES',
         coordinates

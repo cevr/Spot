@@ -23,7 +23,7 @@ class CardPopUp extends Component {
     };
 
     componentWillUnmount() {
-        if (!this.props.info.read) {
+        if (!this.props.info.read && !this.props.lightBox) {
             this.props.listUpdate(
                 {
                     listid: this.props.info._id,
@@ -48,7 +48,7 @@ class CardPopUp extends Component {
                         {info.items[0] || 'No message to display'}
                     </Text>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={lightBox && { color: '#fff' }}>
+                        <Text style={lightBox && { color: '#afafaf' }}>
                             {info.read && 'READ'}
                         </Text>
                     </View>
