@@ -33,7 +33,6 @@ class AllMessagesScreen extends Component {
         }
         if (event.id === 'willAppear') {
             if (this.props.coordinates) {
-                this.props.listReadAll();
                 this.setState(prevState => {
                     return {
                         ...prevState,

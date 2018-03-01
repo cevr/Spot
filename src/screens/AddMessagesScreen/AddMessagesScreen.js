@@ -15,14 +15,14 @@ import MapView, { Marker, Circle } from 'react-native-maps';
 import { createMessage } from '../../Global/api';
 
 class AddMessagesScreen extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
         this.state = {
             region: {
                 coordinates: {
-                    //Default coordinates - Montreal
-                    latitude: 45.5017,
-                    longitude: -73.5673
+                    latitude: 0,
+                    longitude: 0
                 },
                 radius: 15
             },
@@ -30,6 +30,33 @@ class AddMessagesScreen extends Component {
         };
         this.msg = '';
     }
+
+    onNavigatorEvent = event => {
+        if (event.type === 'NavBarButtonPress') {
+            if (event.id === 'settingsToggle') {
+                this.props.navigator.toggleDrawer({
+                    side: 'right'
+                });
+            }
+        }
+        if (event.id === 'willAppear') {
+            if (this.props.coordinates) {
+                this.setState({
+                    region: {
+                        coordinates: {
+                            ...this.props.coordinates,
+                            latitudeDelta: 0.0022,
+                            longitudeDelta:
+                                Dimensions.get('window').width /
+                                Dimensions.get('window').height *
+                                0.0022
+                        },
+                        radius: 15
+                    }
+                });
+            }
+        }
+    };
 
     addLocation = () => {
         this.props.navigator.showLightBox({
@@ -112,7 +139,7 @@ class AddMessagesScreen extends Component {
                         ref={text => (this.title = text)}
                         onChangeText={text => this.setState({ title: text })}
                     />
-                    {this.state.showTextInput ? (
+                    {/* {this.state.showTextInput ? (
                         <TextInput
                             placeholder="Recipient email"
                             placeholderTextColor="#c4c4c4"
@@ -135,7 +162,7 @@ class AddMessagesScreen extends Component {
                         >
                             Sending to someone else?
                         </Text>
-                    )}
+                    )} */}
                     <View style={styles.textField}>
                         <TextInput
                             placeholder="Type up to 256 characters here"
@@ -190,6 +217,22 @@ class AddMessagesScreen extends Component {
                                 strokeColor="#72a3b2"
                                 fillColor="rgba(140, 201, 219, 0.5)"
                             />
+                            {this.state.mapReady && (
+                                <Circle
+                                    center={this.props.coordinates}
+                                    radius={4}
+                                    strokeColor="rgba(137,11,14,0.8)"
+                                    fillColor="rgba(137,11,14,0.2)"
+                                />
+                            )}
+                            {this.state.mapReady && (
+                                <Circle
+                                    center={this.props.coordinates}
+                                    radius={3}
+                                    strokeColor="rgba(137,11,14,0.8)"
+                                    fillColor="rgba(137,11,14,0.5)"
+                                />
+                            )}
                         </MapView>
                     </View>
                 )}
@@ -210,7 +253,7 @@ const styles = StyleSheet.create({
     },
     msgBody: {
         height: 100,
-        width: Dimensions.get('window').width * 0.55,
+        width: Dimensions.get('window').width * 0.52,
         borderWidth: 1,
         borderRadius: 4,
         borderColor: '#c4c4c4',
