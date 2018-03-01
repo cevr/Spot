@@ -149,14 +149,20 @@ export const checkLocation = coordinates => {
             body: JSON.stringify({ lat, long })
         })
             .then(res => res.json())
-            .then(res => {
-                console.log('response body: ', res);
-
+            .then(json => {
                 //if res.res exists, it is a failure
-                if (res.res) {
+                if (json.res) {
                     dispatch(listEmpty());
                 } else {
-                    dispatch(setMessages(res));
+                    dispatch(
+                        setMessages(
+                            json.sort((a, b) => {
+                                return a.read && b.read
+                                    ? 0
+                                    : a.read ? 1 : b.read ? -1 : 0;
+                            })
+                        )
+                    );
                     dispatch(UINotLoading());
                 }
             });
@@ -177,7 +183,15 @@ export const listReadAll = () => {
                     //must write conditional like this because backend only sends json.res when it encounters an error
                     dispatch(setError());
                 } else {
-                    dispatch(setAllMessages(json));
+                    dispatch(
+                        setAllMessages(
+                            json.sort((a, b) => {
+                                return a.read && b.read
+                                    ? 0
+                                    : a.read ? 1 : b.read ? -1 : 0;
+                            })
+                        )
+                    );
                     dispatch(UINotLoading());
                 }
             });
