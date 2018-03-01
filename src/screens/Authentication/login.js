@@ -66,6 +66,7 @@ class Login extends Component {
                     onChangeText={text => this.setState({ password: text })}
                     placeholder="Password"
                     secureTextEntry={true}
+                    autoCapitalize="none"
                 />
                 <Button onPress={this.login} title="Login" />
                 <Text style={{ color: '#F6F6F6' }} onPress={this.showSignup}>

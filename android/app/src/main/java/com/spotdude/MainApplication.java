@@ -11,7 +11,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
-
+import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 
 import java.util.Arrays;
@@ -34,7 +34,8 @@ import java.util.List;
                 new MapsPackage(),
                 new MainReactPackage(),
                 new CookieManagerPackage(),
-                new VectorIconsPackage()
+                new VectorIconsPackage(),
+                new RNNotificationsPackage(MainApplication.this)
          );
      }
 

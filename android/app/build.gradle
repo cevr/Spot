@@ -151,7 +151,11 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-maps')
     compile project(':react-native-cookies')
+    compile 'com.google.firebase:firebase-messaging:10.2.6'
 
+    compile(project(':react-native-notifications')) {
+        exclude group: 'com.google.firebase', module: 'firebase-messaging'
+    }
 }
 
 // Run this once to be able to run the application with BUCK

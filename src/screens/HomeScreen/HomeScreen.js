@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navigation } from 'react-native-navigation';
-
+import { NotificationsAndroid } from 'react-native-notifications';
 import {
     View,
     ToastAndroid,
@@ -83,10 +83,29 @@ class HomeScreen extends Component {
         this.getCoordinates();
     }
 
+    componentDidUpdate() {
+        if (this.props.isLoading === false) {
+            if (this.props.messages.length > 0) {
+                const unreadCount = this.props.messages.filter(msg => {
+                    return msg.read === false;
+                }).length;
+                if (unreadCount > 0) {
+                    NotificationsAndroid.localNotification({
+                        title: 'Local notification',
+                        body: `You have ${unreadCount} unread message(s)`,
+                        data: {
+                            extra: 'Some data'
+                        }
+                    });
+                }
+            }
+        }
+    }
     render() {
-        return this.props.isLoading ? (
+        return this.props.isLoading && this.props.messages.length === 0 ? (
             <Loading />
-        ) : this.props.messages.length === 0 ? (
+        ) : this.props.messages.length === 0 &&
+        this.props.isLoading === false ? (
             <ListEmpty />
         ) : (
             <View style={styles.CardList}>
