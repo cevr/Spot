@@ -25,7 +25,8 @@ class AddMessagesScreen extends Component {
                     longitude: -73.5673
                 },
                 radius: 15
-            }
+            },
+            showTextInput: false
         };
         this.msg = '';
     }
@@ -55,6 +56,7 @@ class AddMessagesScreen extends Component {
             );
         }
         createMessage({
+            recipient: this.state.person || this.props.email,
             title: this.state.title,
             list: this.state.msg,
             lat: this.state.region.coordinates.latitude,
@@ -62,6 +64,7 @@ class AddMessagesScreen extends Component {
             rad: this.state.region.radius
         });
         ToastAndroid.show('Message Sent!', ToastAndroid.SHORT);
+        this.person.clear();
         this.title.clear();
         this.msg.clear();
         this.setState({
@@ -76,22 +79,63 @@ class AddMessagesScreen extends Component {
         this.setState({ mapReady: true });
     };
 
+    showSendToPerson = () => {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                showTextInput: true
+            };
+        });
+    };
+
     render() {
         return (
             <ScrollView
                 contentContainerStyle={styles.container}
                 scrollEnabled={true}
             >
-                <View>
+                <View style={styles.titleBar}>
                     <TextInput
                         placeholder="Title"
                         placeholderTextColor="#c4c4c4"
-                        style={styles.msgTitle}
+                        style={
+                            this.state.showTextInput
+                                ? [
+                                      styles.msgTitle,
+                                      { marginTop: 10, marginBottom: 10 }
+                                  ]
+                                : styles.msgTitle
+                        }
                         underlineColorAndroid="transparent"
                         maxLength={40}
+                        value={this.state.title}
                         ref={text => (this.title = text)}
                         onChangeText={text => this.setState({ title: text })}
                     />
+                    {this.state.showTextInput ? (
+                        <TextInput
+                            placeholder="Recipient email"
+                            placeholderTextColor="#c4c4c4"
+                            style={[
+                                styles.msgTitle,
+                                { marginTop: 0, marginBottom: 25 }
+                            ]}
+                            underlineColorAndroid="transparent"
+                            maxLength={40}
+                            value={this.state.person}
+                            ref={text => (this.person = text)}
+                            onChangeText={text =>
+                                this.setState({ person: text })
+                            }
+                        />
+                    ) : (
+                        <Text
+                            onPress={this.showSendToPerson}
+                            style={{ marginBottom: 17 }}
+                        >
+                            Sending to someone else?
+                        </Text>
+                    )}
                     <View style={styles.textField}>
                         <TextInput
                             placeholder="Type up to 256 characters here"
@@ -100,10 +144,11 @@ class AddMessagesScreen extends Component {
                             underlineColorAndroid="transparent"
                             multiline={true}
                             maxLength={256}
+                            value={this.state.msg}
                             ref={text => (this.msg = text)}
                             onChangeText={text => this.setState({ msg: text })}
                         />
-                        <View>
+                        <View style={{ marginLeft: 5 }}>
                             <View style={styles.button}>
                                 <Button
                                     title="Set Location"
@@ -165,7 +210,7 @@ const styles = StyleSheet.create({
     },
     msgBody: {
         height: 100,
-        width: 240,
+        width: Dimensions.get('window').width * 0.55,
         borderWidth: 1,
         borderRadius: 4,
         borderColor: '#c4c4c4',
@@ -173,7 +218,7 @@ const styles = StyleSheet.create({
     },
     msgTitle: {
         height: 40,
-        width: Dimensions.get('window').width - 30,
+        width: Dimensions.get('window').width - 36,
         borderWidth: 1,
         borderRadius: 4,
         borderColor: '#c4c4c4',
@@ -192,7 +237,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        margin: 20
+        margin: 20,
+        marginBottom: 10
     },
     map: {
         position: 'absolute',
@@ -204,12 +250,17 @@ const styles = StyleSheet.create({
     },
     textField: {
         flexDirection: 'row'
+    },
+    titleBar: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
 const mapStateToProps = state => {
     return {
-        coordinates: state.coordinates
+        coordinates: state.coordinates,
+        email: state.email
     };
 };
 

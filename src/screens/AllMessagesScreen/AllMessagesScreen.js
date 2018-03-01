@@ -96,6 +96,12 @@ class AllMessagesScreen extends Component {
             };
         });
     };
+    truncateString = (str, num) => {
+        if (str.length > num)
+            return str.slice(0, num > 3 ? num - 3 : num) + '...';
+        return str;
+    };
+
     render() {
         const { coordinates } = this.props;
         if (coordinates) {
@@ -186,7 +192,10 @@ class AllMessagesScreen extends Component {
                                             )
                                         }
                                         key={`${index}`}
-                                        title={msg.title}
+                                        title={this.truncateString(
+                                            msg.title,
+                                            10
+                                        )}
                                     />
                                 );
                             })}
