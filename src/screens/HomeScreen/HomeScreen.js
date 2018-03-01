@@ -109,12 +109,6 @@ class HomeScreen extends Component {
             <ListEmpty />
         ) : (
             <View style={styles.CardList}>
-                {this.props.coordinates && (
-                    <Text>
-                        lat {this.props.coordinates.latitude} long
-                        {this.props.coordinates.longitude}
-                    </Text>
-                )}
                 <CardList
                     data={this.props.messages}
                     navigator={this.props.navigator}
