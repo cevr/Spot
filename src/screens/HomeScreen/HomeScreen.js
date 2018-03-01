@@ -65,7 +65,7 @@ class HomeScreen extends Component {
     updateCoordinates = () => {
         navigator.geolocation.watchPosition(
             pos => {
-                console.log('MOVING!!!', pos);
+                console.log('MOVING!!!', pos.coords);
                 this.props.setCoordinates(pos.coords);
                 this.props.checkLocation(pos.coords);
             },
@@ -81,6 +81,7 @@ class HomeScreen extends Component {
 
     componentDidMount() {
         this.getCoordinates();
+        this.updateCoordinates();
     }
 
     render() {
@@ -90,12 +91,6 @@ class HomeScreen extends Component {
             <ListEmpty />
         ) : (
             <View style={styles.CardList}>
-                {this.props.coordinates && (
-                    <Text>
-                        lat {this.props.coordinates.latitude} long
-                        {this.props.coordinates.longitude}
-                    </Text>
-                )}
                 <CardList
                     data={this.props.messages}
                     navigator={this.props.navigator}

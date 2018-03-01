@@ -110,6 +110,7 @@ export const setAllMessages = messages => {
 };
 
 export const updatePosition = coordinates => {
+    console.log('UPDATE POSITION SETTING COORDINATES', coordinates);
     return {
         type: 'SET_COORDINATES',
         coordinates
@@ -150,8 +151,6 @@ export const checkLocation = coordinates => {
         })
             .then(res => res.json())
             .then(res => {
-                console.log('response body: ', res);
-
                 //if res.res exists, it is a failure
                 if (res.res) {
                     dispatch(listEmpty());

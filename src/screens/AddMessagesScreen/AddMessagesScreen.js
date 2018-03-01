@@ -10,10 +10,11 @@ import {
     ToastAndroid,
     Dimensions
 } from 'react-native';
+import { connect } from 'react-redux';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import { createMessage } from '../../Global/api';
 
-export default class AddMessagesScreen extends Component {
+class AddMessagesScreen extends Component {
     constructor() {
         super();
         this.state = {
@@ -65,10 +66,7 @@ export default class AddMessagesScreen extends Component {
         this.msg.clear();
         this.setState({
             region: {
-                coordinates: {
-                    latitude: 45.5017,
-                    longitude: -73.5673
-                },
+                coordinates: this.props.coordinates,
                 radius: 15
             }
         });
@@ -105,29 +103,37 @@ export default class AddMessagesScreen extends Component {
                         onChangeText={text => this.setState({ msg: text })}
                     />
                 </View>
-                <View style={styles.mapContainer}>
-                    <MapView
-                        region={{
-                            ...this.state.region.coordinates,
-                            latitudeDelta: 0.0005,
-                            longitudeDelta: 0.0002
-                        }}
-                        style={styles.map}
-                        onLayout={this.mapReady}
-                    >
-                        <Marker coordinate={this.state.region.coordinates} />
-                        <Circle
-                            center={this.state.region.coordinates}
-                            radius={this.state.region.radius}
-                            strokeColor="#72a3b2"
-                            fillColor="rgba(140, 201, 219, 0.5)"
-                        />
-                    </MapView>
-                </View>
+                {this.props.coordinates && (
+                    <View style={styles.mapContainer}>
+                        <MapView
+                            region={{
+                                ...this.state.region.coordinates,
+                                latitudeDelta: 0.0022,
+                                longitudeDelta:
+                                    Dimensions.get('window').width /
+                                    Dimensions.get('window').height *
+                                    0.0022
+                            }}
+                            style={styles.map}
+                            onLayout={this.mapReady}
+                        >
+                            <Marker
+                                coordinate={this.state.region.coordinates}
+                            />
+                            <Circle
+                                center={this.state.region.coordinates}
+                                radius={this.state.region.radius}
+                                strokeColor="#72a3b2"
+                                fillColor="rgba(140, 201, 219, 0.5)"
+                            />
+                        </MapView>
+                    </View>
+                )}
+
                 <View>
                     <View style={styles.button}>
                         <Button
-                            title="Add Location"
+                            title="Set Location"
                             onPress={this.addLocation}
                         />
                     </View>
@@ -194,3 +200,11 @@ const styles = StyleSheet.create({
         bottom: 0
     }
 });
+
+const mapStateToProps = state => {
+    return {
+        coordinates: state.coordinates
+    };
+};
+
+export default connect(mapStateToProps)(AddMessagesScreen);
