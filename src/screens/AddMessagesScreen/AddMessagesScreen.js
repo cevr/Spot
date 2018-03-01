@@ -92,17 +92,36 @@ class AddMessagesScreen extends Component {
                         ref={text => (this.title = text)}
                         onChangeText={text => this.setState({ title: text })}
                     />
-                    <TextInput
-                        placeholder="Type up to 256 characters here"
-                        placeholderTextColor="#c4c4c4"
-                        style={styles.msgBody}
-                        underlineColorAndroid="transparent"
-                        multiline={true}
-                        maxLength={256}
-                        ref={text => (this.msg = text)}
-                        onChangeText={text => this.setState({ msg: text })}
-                    />
+                    <View style={styles.textField}>
+                        <TextInput
+                            placeholder="Type up to 256 characters here"
+                            placeholderTextColor="#c4c4c4"
+                            style={styles.msgBody}
+                            underlineColorAndroid="transparent"
+                            multiline={true}
+                            maxLength={256}
+                            ref={text => (this.msg = text)}
+                            onChangeText={text => this.setState({ msg: text })}
+                        />
+                        <View>
+                            <View style={styles.button}>
+                                <Button
+                                    title="Set Location"
+                                    color="#ce797b"
+                                    onPress={this.addLocation}
+                                />
+                            </View>
+                            <View style={styles.button}>
+                                <Button
+                                    title="Send Message"
+                                    onPress={this.submitMsg}
+                                    color="#890B0E"
+                                />
+                            </View>
+                        </View>
+                    </View>
                 </View>
+
                 {this.props.coordinates && (
                     <View style={styles.mapContainer}>
                         <MapView
@@ -129,22 +148,6 @@ class AddMessagesScreen extends Component {
                         </MapView>
                     </View>
                 )}
-
-                <View>
-                    <View style={styles.button}>
-                        <Button
-                            title="Set Location"
-                            onPress={this.addLocation}
-                        />
-                    </View>
-                    <View style={styles.button}>
-                        <Button
-                            title="Send Message"
-                            onPress={this.submitMsg}
-                            color="#1d3c72"
-                        />
-                    </View>
-                </View>
             </ScrollView>
         );
     }
@@ -166,25 +169,24 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 4,
         borderColor: '#c4c4c4',
-        textAlignVertical: 'top',
-        marginTop: 20,
-        marginBottom: 10
+        textAlignVertical: 'top'
     },
     msgTitle: {
         height: 40,
-        width: 240,
+        width: Dimensions.get('window').width - 30,
         borderWidth: 1,
         borderRadius: 4,
         borderColor: '#c4c4c4',
         textAlignVertical: 'top',
-        marginTop: 10
+        marginTop: 30,
+        marginBottom: 20
     },
     button: {
-        margin: 5
+        margin: 6
     },
     mapContainer: {
         position: 'absolute',
-        top: 270,
+        top: 220,
         left: 0,
         right: 0,
         bottom: 0,
@@ -197,7 +199,11 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0
+        bottom: 0,
+        borderRadius: 10
+    },
+    textField: {
+        flexDirection: 'row'
     }
 });
 

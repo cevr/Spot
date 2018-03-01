@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const startTabs = () => {
     //Icon.getImageSource is async, therefore you need to resolve it through a promise or an async/await (couldn't get it working with async)
     Promise.all([
-        Icon.getImageSource('home-outline', 40),
+        Icon.getImageSource('message-bulleted', 40),
         Icon.getImageSource('map-marker', 40),
         Icon.getImageSource('plus-circle-outline', 40),
         Icon.getImageSource('menu', 30)
@@ -74,6 +74,7 @@ const startTabs = () => {
             },
             appStyle: {
                 tabBarSelectedButtonColor: '#F6F6F6',
+                tabBarButtonColor: '#b7b7b7',
                 tabBarBackgroundColor: '#890B0E',
                 orientation: 'portrait'
             },

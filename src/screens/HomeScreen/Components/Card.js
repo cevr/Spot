@@ -20,7 +20,8 @@ export default (Card = props => (
                 title: props.cardData.title,
                 passProps: {
                     info: Object.assign({}, props.cardData)
-                }
+                },
+                navigatorStyle
             });
         }}
     >
