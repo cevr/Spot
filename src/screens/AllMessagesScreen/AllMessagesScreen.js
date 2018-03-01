@@ -60,13 +60,17 @@ class AllMessagesScreen extends Component {
     };
 
     onMarkerPress = item => {
-        this.props.navigator.showModal({
+        this.props.navigator.showLightBox({
             screen: 'spot.CardPopUp',
-            title: item.title,
-            passProps: {
-                info: Object.assign({}, item)
+            style: {
+                backgroundBlur: 'dark',
+                backgroundColor: '#00000080',
+                tapBackgroundToDismiss: true
             },
-            navigatorStyle
+            passProps: {
+                info: Object.assign({}, item),
+                lightBox: true
+            }
         });
     };
 
@@ -112,7 +116,6 @@ class AllMessagesScreen extends Component {
                                             longitude: msg.long
                                         }}
                                         title={msg.title}
-                                        description={msg.items[0]}
                                         key={msg._id}
                                         onCalloutPress={() => {
                                             this.onMarkerPress(msg);

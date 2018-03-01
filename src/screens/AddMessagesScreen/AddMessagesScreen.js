@@ -35,6 +35,9 @@ export default class AddMessagesScreen extends Component {
             passProps: {
                 setLocation: this.setLocation,
                 region: this.state.region
+            },
+            style: {
+                tapBackgroundToDismiss: true
             }
         });
     };

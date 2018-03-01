@@ -5,7 +5,8 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity as Touchable,
-    Image
+    Image,
+    Modal
 } from 'react-native';
 import { navigatorStyle } from '../../../Tabs/startTabs';
 import { H3, H2 } from '../../../UI';
@@ -19,8 +20,7 @@ export default (Card = props => (
                 title: props.cardData.title,
                 passProps: {
                     info: Object.assign({}, props.cardData)
-                },
-                navigatorStyle
+                }
             });
         }}
     >

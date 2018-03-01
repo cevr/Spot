@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, ToastAndroid } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    ToastAndroid
+} from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { listRead } from '../../../Global/api';
@@ -16,10 +22,6 @@ class CardPopUp extends Component {
         this.setState({ mapReady: true });
     };
 
-    componentDidMount() {
-        console.log('PROPS FOR CARD POP UP', this.props.coordinates);
-    }
-
     componentWillUnmount() {
         if (!this.props.info.read) {
             this.props.listUpdate(
@@ -34,50 +36,58 @@ class CardPopUp extends Component {
     }
 
     render() {
-        const { info, listUpdate } = this.props;
+        const { info, listUpdate, lightBox } = this.props;
         return (
-            <View style={styles.container}>
-                <View style={styles.msgContainer}>
+            <View
+                style={lightBox ? styles.lightBoxContainer : styles.container}
+            >
+                <View
+                    style={lightBox ? styles.lightBoxMsg : styles.msgContainer}
+                >
                     <Text style={styles.msgBody}>
                         {info.items[0] || 'No message to display'}
                     </Text>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={lightBox && { color: '#fff' }}>
+                            {info.read && 'READ'}
+                        </Text>
+                    </View>
                 </View>
-                <View>
-                    <Text>{info.read && 'READ'}</Text>
-                </View>
-                <View style={styles.mapContainer}>
-                    <MapView
-                        region={{
-                            latitude: info.lat,
-                            longitude: info.long,
-                            latitudeDelta: 0.005,
-                            longitudeDelta: 0.002
-                        }}
-                        style={styles.map}
-                        onLayout={this.mapReady}
-                    >
-                        {this.state.mapReady && (
-                            <Marker
-                                coordinate={{
-                                    latitude: info.lat,
-                                    longitude: info.long
-                                }}
-                            />
-                        )}
 
-                        {this.state.mapReady && (
-                            <Circle
-                                center={{
-                                    latitude: info.lat,
-                                    longitude: info.long
-                                }}
-                                radius={info.rad}
-                                strokeColor="#72a3b2"
-                                fillColor="rgba(140, 201, 219, 0.5)"
-                            />
-                        )}
-                    </MapView>
-                </View>
+                {this.props.lightBox || (
+                    <View style={styles.mapContainer}>
+                        <MapView
+                            region={{
+                                latitude: info.lat,
+                                longitude: info.long,
+                                latitudeDelta: 0.005,
+                                longitudeDelta: 0.002
+                            }}
+                            style={styles.map}
+                            onLayout={this.mapReady}
+                        >
+                            {this.state.mapReady && (
+                                <Marker
+                                    coordinate={{
+                                        latitude: info.lat,
+                                        longitude: info.long
+                                    }}
+                                />
+                            )}
+                            {this.state.mapReady && (
+                                <Circle
+                                    center={{
+                                        latitude: info.lat,
+                                        longitude: info.long
+                                    }}
+                                    radius={info.rad}
+                                    strokeColor="#72a3b2"
+                                    fillColor="rgba(140, 201, 219, 0.5)"
+                                />
+                            )}
+                        </MapView>
+                    </View>
+                )}
             </View>
         );
     }
@@ -85,14 +95,27 @@ class CardPopUp extends Component {
 }
 
 const styles = StyleSheet.create({
+    lightBoxContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(120, 120, 120, 0)',
+        width: 240,
+        height: 200
+    },
     container: {
         flex: 1,
         alignItems: 'center',
         backgroundColor: '#F6F6F6'
     },
+    lightBoxMsg: {
+        justifyContent: 'center',
+        width: 240,
+        height: 180,
+        backgroundColor: '#F6F6F6',
+        borderRadius: 10
+    },
     msgContainer: {
-        height: 200,
-        width: '80%',
+        flex: 1,
         backgroundColor: '#F6F6F6'
     },
     msgBody: {
@@ -104,10 +127,11 @@ const styles = StyleSheet.create({
         top: 270,
         left: 0,
         right: 0,
-        bottom: 20,
+        bottom: 0,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        margin: 20
+        margin: 20,
+        backgroundColor: 'rgba(120, 120, 120, 1.0)'
     },
     map: {
         position: 'absolute',

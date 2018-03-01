@@ -16,8 +16,8 @@ const startTabs = () => {
             tabs: [
                 {
                     screen: 'spot.HomeScreen',
-                    label: 'Home',
-                    title: 'Home',
+                    label: 'Messages',
+                    title: 'Messages Near You',
                     //this icon key is a required value otherwise react throws an error
                     icon: sources[0],
                     navigatorStyle,

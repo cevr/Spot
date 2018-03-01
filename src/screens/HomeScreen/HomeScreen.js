@@ -18,7 +18,6 @@ import {
     listReadAll
 } from '../../redux/actions';
 
-// import MapView from 'react-native-maps';
 import data from '../../Global/fakeData';
 import CardList from './Components/CardList';
 import { Loading, ListEmpty } from '../../UI';
@@ -27,7 +26,6 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-        // this.state = { coordinates: { latitude: 0, longitude: 0 } };
     }
     onNavigatorEvent = event => {
         if (event.type === 'NavBarButtonPress') {
@@ -88,7 +86,7 @@ class HomeScreen extends Component {
     render() {
         return this.props.isLoading ? (
             <Loading />
-        ) : this.props.messages.length === 0 && this.props.isLoading ? (
+        ) : this.props.messages.length === 0 ? (
             <ListEmpty />
         ) : (
             <View style={styles.CardList}>
