@@ -18,8 +18,11 @@ export const attemptLogIn = userData => {
                 if (json.err) {
                     console.log(json.err);
                 } else {
-                    dispatch(logIn());
-                    dispatch(storeSession(json));
+                    dispatch(logIn(userData));
+                    AsyncStorage.setItem(
+                        'spot:email',
+                        JSON.stringify(userData)
+                    );
                 }
             });
     };
@@ -83,9 +86,10 @@ export const signUp = boolean => {
     };
 };
 
-export const logIn = () => {
+export const logIn = userData => {
     return {
-        type: 'LOG_IN'
+        type: 'LOG_IN',
+        email: userData.email
     };
 };
 
@@ -117,12 +121,7 @@ export const updatePosition = coordinates => {
     };
 };
 
-export const storeSession = sessionID => {
-    return dispatch => {
-        dispatch();
-        AsyncStorage.setItem('spot:sessionID', JSON.stringify(sessionID));
-    };
-};
+export const storeLogin = email => {};
 export const checkSessionID = () => {
     return dispatch => {
         fetch('https://jodysmith.ca/checkSession', {
@@ -132,7 +131,7 @@ export const checkSessionID = () => {
             .then(json => {
                 console.log('CHECK SESSION ID', json);
                 if (json.res === true) {
-                    dispatch(logIn());
+                    dispatch(getUserEmail());
                 }
             });
     };
@@ -216,6 +215,14 @@ export const listUpdate = (reqBody, coordinates) => {
                     dispatch({ type: 'UPDATE' });
                 }
             });
+    };
+};
+
+const getUserEmail = () => {
+    return dispatch => {
+        AsyncStorage.getItem('spot:email')
+            .then(res => JSON.parse(res))
+            .then(json => dispatch(logIn(json)));
     };
 };
 

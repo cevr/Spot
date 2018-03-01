@@ -33,16 +33,24 @@ class SettingsScreen extends Component {
                     }
                 ]}
             >
-                <Image
-                    style={styles.images}
-                    source={{
-                        uri:
-                            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-                    }}
-                />
-                <Text style={styles.text}>Avery Riell-Perrson</Text>
+                <View>
+                    <Image
+                        style={styles.images}
+                        source={{
+                            uri:
+                                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                        }}
+                    />
+                    <Text style={styles.text}>{this.props.email}</Text>
+                </View>
                 <View style={styles.button}>
                     <Icon.Button
+                        style={{
+                            width: 200,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingRight: 25
+                        }}
                         name="sign-out"
                         backgroundColor="#890C10"
                         onPress={this.logOut}
@@ -59,7 +67,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#F6F6F6'
+        backgroundColor: '#F6F6F6',
+        justifyContent: 'space-between'
     },
     images: {
         marginTop: 25,
@@ -72,7 +81,11 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     button: {
-        marginTop: 170
+        marginTop: 170,
+        marginBottom: 30
+    },
+    settings: {
+        justifyContent: 'space-between'
     }
 });
 
@@ -88,7 +101,8 @@ const myButton = (
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.isLoggedIn
+        isLoggedIn: state.isLoggedIn,
+        email: state.email
     };
 };
 
