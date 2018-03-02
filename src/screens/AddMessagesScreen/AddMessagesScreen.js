@@ -44,12 +44,7 @@ class AddMessagesScreen extends Component {
                 this.setState({
                     region: {
                         coordinates: {
-                            ...this.props.coordinates,
-                            latitudeDelta: 0.0022,
-                            longitudeDelta:
-                                Dimensions.get('window').width /
-                                Dimensions.get('window').height *
-                                0.0022
+                            ...this.props.coordinates
                         },
                         radius: 15
                     }
