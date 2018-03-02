@@ -86,7 +86,7 @@ class AddMessagesScreen extends Component {
             rad: this.state.region.radius
         });
         ToastAndroid.show('Message Sent!', ToastAndroid.SHORT);
-        this.person.clear();
+        // this.person.clear();
         this.title.clear();
         this.msg.clear();
         this.setState({
