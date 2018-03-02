@@ -97,7 +97,7 @@ android {
     buildToolsVersion "25.0.1"
 
     defaultConfig {
-        applicationId "com.spotdude"
+        applicationId "com.Spot"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
