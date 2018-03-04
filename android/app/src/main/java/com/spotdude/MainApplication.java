@@ -1,4 +1,4 @@
-package com.spotdude;
+package com.spot;
 
 import android.app.Application;
 
