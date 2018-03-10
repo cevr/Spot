@@ -43,4 +43,12 @@ Press marker to display message
 
 ----------
 
+## Upcoming Features
+### Social Interactivity
+Send messages to friends
+Allow friends to edit sent messages
+
+### Send more than text
+Images, sound files, etc.
+
 
