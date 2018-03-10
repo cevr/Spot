@@ -2,8 +2,10 @@
 Spot is a geo-location reminder app that sends reminders and notifications based on a user's location.
 
 >Front-End: React-Native, Redux
+
 >Back-End: Node.js, Express, MongoDB
-https://github.com/JodyPSmith/spotdudeBackend
+
+>https://github.com/JodyPSmith/spotdudeBackend
 ## Screens
 ![Screens](https://lh3.googleusercontent.com/J5YcUgGoV9ZMpmtBCxMBeEWHmVadzOBs8N0FEtERQmyqdfM3gbsYhi7rA2XAJLWy9QcQvuN5VQT0)
 ***
